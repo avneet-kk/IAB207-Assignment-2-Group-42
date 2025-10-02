@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Bookings - K-Stage</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link href="static/style/main.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <i class="bi bi-music-note-beamed text-primary me-2"></i>K-Stage
+      </a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="create-event.html">Create Event</a></li>
+          <li class="nav-item"><a class="nav-link active" href="booking-history.html">My Bookings</a></li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="signup.html">Register</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Booking History -->
+  <section class="container py-5 mt-5">
+    <h2 class="fw-bold mb-4">My Booking History</h2>
+    <div class="row g-4">
+      <!-- Booking Card -->
+      <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+          <img src="https://assets.sydneyoperahouse.com/images/Events/2025/TWICE-Ready-To-Be/hero.jpg" 
+               class="card-img-top" alt="TWICE Concert">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">TWICE Ready To Be Tour - Sydney</h5>
+            <p class="card-text text-muted">
+              Booking ID: <strong>#A12345</strong><br>
+              Booked on: 2 Sept 2025<br>
+              Tickets: 2
+            </p>
+            <a href="event-details.html" class="btn btn-outline-primary w-100">View Event</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="card shadow-sm h-100">
+          <img src="https://i.scdn.co/image/ab67616d0000b273a3c5a60d37c2fe3e3b9cabe4" 
+               class="card-img-top" alt="BLACKPINK Fan Meet">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">BLACKPINK Fan Meeting - Melbourne</h5>
+            <p class="card-text text-muted">
+              Booking ID: <strong>#B67890</strong><br>
+              Booked on: 5 Sept 2025<br>
+              Tickets: 1
+            </p>
+            <a href="event-details.html" class="btn btn-outline-primary w-100">View Event</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-dark text-light text-center py-3">
+    <p class="mb-0">&copy; 2025 K-Stage. All rights reserved.</p>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

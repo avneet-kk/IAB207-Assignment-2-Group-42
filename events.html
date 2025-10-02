@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>K-pop Events</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    /* Blue theme */
+    body {
+      background-color: #f9fbff;
+      color: #333;
+    }
+
+    header.hero {
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: white;
+      padding: 5rem 0;
+      text-align: center;
+    }
+
+    header.hero h1 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+
+    .filter-btns .btn {
+      border-radius: 30px;
+      padding: 0.5rem 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .filter-btns .btn-primary {
+      background: #1e3c72;
+      border: none;
+    }
+
+    .filter-btns .btn-outline-primary:hover {
+      background: #1e3c72;
+      color: #fff;
+    }
+
+    .event-card {
+      border: none;
+      border-radius: 15px;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .event-card img {
+      height: 220px;
+      object-fit: cover;
+    }
+
+    .card-footer {
+      background: transparent;
+    }
+
+    .btn-primary {
+      background: #2a5298;
+      border: none;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: #1e3c72;
+    }
+
+    /* Status badges and indicators */
+    .status-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      z-index: 10;
+      font-size: 0.75rem;
+      font-weight: bold;
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .status-cancelled {
+      background: #dc3545;
+      color: white;
+    }
+
+    .status-sold-out {
+      background: #6c757d;
+      color: white;
+    }
+
+    .status-low-stock {
+      background: #fd7e14;
+      color: white;
+      animation: pulse 2s infinite;
+    }
+
+    .status-new {
+      background: #198754;
+      color: white;
+    }
+
+    .status-vip-only {
+      background: #6f42c1;
+      color: white;
+    }
+
+    .status-early-bird {
+      background: #20c997;
+      color: white;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+
+    /* Ticket availability styling */
+    .ticket-status {
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .ticket-status.cancelled {
+      color: #dc3545;
+    }
+
+    .ticket-status.sold-out {
+      color: #6c757d;
+    }
+
+    .ticket-status.low-stock {
+      color: #fd7e14;
+    }
+
+    .ticket-status.available {
+      color: #198754;
+    }
+
+    .ticket-status.vip-only {
+      color: #6f42c1;
+    }
+
+    /* Disabled card styling */
+    .event-card.disabled {
+      opacity: 0.7;
+    }
+
+    .event-card.disabled img {
+      filter: grayscale(50%);
+    }
+
+    .btn-disabled {
+      background: #6c757d !important;
+      cursor: not-allowed;
+    }
+
+    /* Price styling */
+    .price-original {
+      text-decoration: line-through;
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+
+    .price-sale {
+      color: #dc3545;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">
+        <i class="bi bi-music-note-beamed text-primary me-2"></i>K-Stage
+      </a>
+      <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="create-event.html">Create Event</a></li>
+          <li class="nav-item"><a class="nav-link" href="booking-history.html">My Bookings</a></li>
+        </ul>
+        <ul class="navbar-nav">
+          <li class="nav-item"><a class="nav-link" href="login.html">Login</a></li>
+          <li class="nav-item"><a class="nav-link" href="signup.html">Register</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Header -->
+  <header class="hero">
+    <div class="container">
+      <h1>Discover K-pop Events</h1>
+      <p class="lead">Concerts, fan meetings, and more — book your tickets now!</p>
+      <a href="create-event.html" class="btn btn-light btn-lg mt-3">
+        <i class="bi bi-plus-circle me-2"></i>Create Event
+      </a>
+    </div>
+  </header>
+
+  <!-- Events Section -->
+  <section class="py-5" id="events">
+    <div class="container">
+
+      <!-- Category Filters -->
+      <div class="d-flex flex-wrap justify-content-center gap-2 mb-4 filter-btns">
+        <button class="btn btn-primary active" data-category="all">All</button>
+        <button class="btn btn-outline-primary" data-category="concert">Concerts</button>
+        <button class="btn btn-outline-primary" data-category="fanmeeting">Fan Meetings</button>
+        <button class="btn btn-outline-primary" data-category="dance">Dance Competitions</button>
+        <button class="btn btn-outline-primary" data-category="multigroup">Multi-Group</button>
+      </div>
+
+      <!-- Events Grid -->
+      <div class="row g-4" id="eventsContainer">
+
+        <!-- Concert - Available -->
+        <div class="col-lg-4 col-md-6" data-category="concert">
+          <div class="card event-card shadow-sm h-100">
+            <span class="status-badge status-new">New</span>
+            <img src="C:\Users\User\Downloads\KSTAGE\static\images\twice.jpeg" class="card-img-top" alt="TWICE Sydney">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">TWICE "This Is For" Tour – Sydney</h5>
+              <p class="text-muted">
+                <i class="bi bi-geo-alt me-1"></i>Qudos Bank Arena, Sydney<br>
+                <i class="bi bi-calendar me-1"></i>1 Nov 2025, 7:00 PM
+              </p>
+              <div class="d-flex justify-content-between align-items-end">
+                <span class="h5 text-primary">$249</span>
+                <small class="ticket-status available">1,500 tickets left</small>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="event-details.html" class="btn btn-primary w-100">View & Book</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fan Meeting - Cancelled -->
+        <div class="col-lg-4 col-md-6" data-category="fanmeeting">
+          <div class="card event-card shadow-sm h-100 disabled">
+            <span class="status-badge status-cancelled">Cancelled</span>
+            <img src="C:\Users\User\Downloads\KSTAGE\static\images\kangdaniel.jpg" class="card-img-top" alt="Kang Daniel Fan Meeting">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">Kang Daniel "ACT" Fan Meeting – Sydney</h5>
+              <p class="text-muted">
+                <i class="bi bi-geo-alt me-1"></i>ICC Sydney Theatre<br>
+                <i class="bi bi-calendar me-1"></i>21 Feb 2025, 7:30 PM
+              </p>
+              <div class="d-flex justify-content-between align-items-end">
+                <span class="h5 text-muted">$179</span>
+                <small class="ticket-status cancelled">Event Cancelled</small>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-disabled w-100" disabled>Cancelled</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dance Competition - Low Stock -->
+        <div class="col-lg-4 col-md-6" data-category="dance">
+          <div class="card event-card shadow-sm h-100">
+            <span class="status-badge status-low-stock">Low Stock</span>
+            <img src="C:\Users\User\Downloads\KSTAGE\static\images\dancecomp.jpg" class="card-img-top" alt="K-pop Dance Competition">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">K-pop Dance Cover Battle – Brisbane</h5>
+              <p class="text-muted">
+                <i class="bi bi-geo-alt me-1"></i>QPAC Brisbane<br>
+                <i class="bi bi-calendar me-1"></i>15 Mar 2025, 6:00 PM
+              </p>
+              <div class="d-flex justify-content-between align-items-end">
+                <span class="h5 text-primary">$49</span>
+                <small class="ticket-status low-stock">Only 8 left!</small>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="event-details.html" class="btn btn-primary w-100">View & Book</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Multi-Group - Sold Out -->
+        <div class="col-lg-4 col-md-6" data-category="multigroup">
+          <div class="card event-card shadow-sm h-100 disabled">
+            <span class="status-badge status-sold-out">Sold Out</span>
+            <img src="C:\Users\User\Downloads\KSTAGE\static\images\kpopfestival.webp" class="card-img-top" alt="K-pop Festival">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">K-pop Festival 2025 – Melbourne</h5>
+              <p class="text-muted">
+                <i class="bi bi-geo-alt me-1"></i>Marvel Stadium, Melbourne<br>
+                <i class="bi bi-calendar me-1"></i>10 Dec 2025, 5:00 PM
+              </p>
+              <div class="d-flex justify-content-between align-items-end">
+                <span class="h5 text-muted">$299</span>
+                <small class="ticket-status sold-out">Sold Out</small>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-disabled w-100" disabled>Sold Out</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Concert - VIP Only -->
+        <div class="col-lg-4 col-md-6" data-category="concert">
+          <div class="card event-card shadow-sm h-100">
+            <span class="status-badge status-vip-only">VIP Only</span>
+            <img src="C:\Users\User\Downloads\KSTAGE\static\images\blackpink.jpg" class="card-img-top" alt="BLACKPINK Concert">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">BLACKPINK World Tour – Perth</h5>
+              <p class="text-muted">
+                <i class="bi bi-geo-alt me-1"></i>RAC Arena, Perth<br>
+                <i class="bi bi-calendar me-1"></i>5 Apr 2025, 8:00 PM
+              </p>
+              <div class="d-flex justify-content-between align-items-end">
+                <span class="h5 text-primary">$399</span>
+                <small class="ticket-status vip-only">VIP Members Only</small>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="event-details.html" class="btn btn-primary w-100">VIP Access</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Fan Meeting - Early Bird -->
+        <div class="col-lg-4 col-md-6" data-category="fanmeeting">
+          <div class="card event-card shadow-sm h-100">
+            <span class="status-badge status-early-bird">Early Bird</span>
+            <img src="C:\Users\User\Downloads\KSTAGE\static\images\IU.jpg" class="card-img-top" alt="IU Fan Meeting">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">IU "Love Letter" Fan Meeting – Adelaide</h5>
+              <p class="text-muted">
+                <i class="bi bi-geo-alt me-1"></i>Adelaide Entertainment Centre<br>
+                <i class="bi bi-calendar me-1"></i>18 Jun 2025, 7:00 PM
+              </p>
+              <div class="d-flex justify-content-between align-items-end">
+                <div>
+                  <span class="price-original">$199</span>
+                  <span class="h5 price-sale">$149</span>
+                </div>
+                <small class="ticket-status available">Early Bird Special!</small>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="event-details.html" class="btn btn-primary w-100">Book Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Concert - Low Stock -->
+        <div class="col-lg-4 col-md-6" data-category="concert">
+          <div class="card event-card shadow-sm h-100">
+            <span class="status-badge status-low-stock">Almost Gone</span>
+            <img src="C:\Users\User\Downloads\KSTAGE\static\images\aespa-tour-announcement.jpg" class="card-img-top" alt="aespa Concert">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">aespa "MY WORLD" Tour – Gold Coast</h5>
+              <p class="text-muted">
+                <i class="bi bi-geo-alt me-1"></i>Gold Coast Convention Centre<br>
+                <i class="bi bi-calendar me-1"></i>22 Jul 2025, 7:30 PM
+              </p>
+              <div class="d-flex justify-content-between align-items-end">
+                <span class="h5 text-primary">$279</span>
+                <small class="ticket-status low-stock">Only 3 left!</small>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="event-details.html" class="btn btn-primary w-100">Grab Now!</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dance Competition - Cancelled -->
+        <div class="col-lg-4 col-md-6" data-category="dance">
+          <div class="card event-card shadow-sm h-100 disabled">
+            <span class="status-badge status-cancelled">Cancelled</span>
+            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Dance Workshop">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">K-pop Choreography Workshop – Darwin</h5>
+              <p class="text-muted">
+                <i class="bi bi-geo-alt me-1"></i>Darwin Entertainment Centre<br>
+                <i class="bi bi-calendar me-1"></i>8 Aug 2025, 2:00 PM
+              </p>
+              <div class="d-flex justify-content-between align-items-end">
+                <span class="h5 text-muted">$89</span>
+                <small class="ticket-status cancelled">Venue Issues</small>
+              </div>
+            </div>
+            <div class="card-footer">
+              <button class="btn btn-disabled w-100" disabled>Cancelled</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Multi-Group - Available -->
+        <div class="col-lg-4 col-md-6" data-category="multigroup">
+          <div class="card event-card shadow-sm h-100">
+            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="K-pop Night">
+            <div class="card-body">
+              <h5 class="card-title fw-bold">K-pop Night Out – Hobart</h5>
+              <p class="text-muted">
+                <i class="bi bi-geo-alt me-1"></i>Wrest Point Entertainment Centre<br>
+                <i class="bi bi-calendar me-1"></i>15 Sep 2025, 6:30 PM
+              </p>
+              <div class="d-flex justify-content-between align-items-end">
+                <span class="h5 text-primary">$99</span>
+                <small class="ticket-status available">850 tickets left</small>
+              </div>
+            </div>
+            <div class="card-footer">
+              <a href="event-details.html" class="btn btn-primary w-100">View & Book</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Filter functionality
+    const filterButtons = document.querySelectorAll('.filter-btns button');
+    const eventCards = document.querySelectorAll('#eventsContainer > div');
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('btn-primary', 'active'));
+        filterButtons.forEach(btn => btn.classList.add('btn-outline-primary'));
+        button.classList.remove('btn-outline-primary');
+        button.classList.add('btn-primary', 'active');
+
+        // Filter events
+        const category = button.dataset.category;
+        eventCards.forEach(card => {
+          if (category === 'all' || card.dataset.category === category) {
+            card.style.display = 'block';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+<footer>
+    <p class="mb-0">&copy; 2025 K-Stage. All rights reserved.</p>
+</footer>
+</body>
+</html>
