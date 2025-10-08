@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField
 from wtforms.validators import InputRequired, Length, Email, EqualTo
 
 # creates the login information
@@ -19,3 +19,8 @@ class RegisterForm(FlaskForm):
 
     # submit button
     submit = SubmitField("Register")
+
+# for booking numbers
+class BookingForm(FlaskForm):
+    qty = IntegerField("Tickets", validators=[InputRequired(), NumberRange(min=1)])
+    submit = SubmitField("Book Now")
