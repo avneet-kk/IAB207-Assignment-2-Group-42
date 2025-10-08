@@ -7,8 +7,6 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.1/font/bootstrap-icons.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-  <link href="static/style/main.css" rel="stylesheet">
-  
 
   <style>
     :root {
@@ -77,6 +75,7 @@
       align-items: center;
       position: relative;
       overflow: hidden;
+      padding-top: 80px;
     }
 
     .hero-section::before {
@@ -137,6 +136,130 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    /* What We Offer Section */
+    .what-we-offer {
+      background: white;
+      padding: 5rem 0;
+    }
+
+    .offer-card {
+      background: linear-gradient(135deg, #f8f9fa, #ffffff);
+      border-radius: 20px;
+      padding: 2.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      height: 100%;
+    }
+
+    .offer-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--secondary-blue);
+      box-shadow: 0 15px 40px rgba(13, 71, 161, 0.15);
+    }
+
+    .offer-icon {
+      font-size: 3.5rem;
+      color: var(--secondary-blue);
+      margin-bottom: 1.5rem;
+    }
+
+    .offer-card h4 {
+      color: var(--primary-blue);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .offer-card p {
+      color: var(--light-text);
+      line-height: 1.6;
+    }
+
+    /* Search and Filter Section */
+    .search-filter-section {
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+      padding: 3rem 0;
+      position: relative;
+    }
+
+    .search-filter-container {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 15px 50px 15px 20px;
+      border: 2px solid #e9ecef;
+      border-radius: 50px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--secondary-blue);
+      box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.15);
+    }
+
+    .search-btn {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+      border: none;
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .search-btn:hover {
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 5px 15px rgba(13, 71, 161, 0.3);
+    }
+
+    .category-filters {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .category-btn {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid var(--secondary-blue);
+      background: white;
+      color: var(--secondary-blue);
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .category-btn:hover {
+      background: var(--light-blue);
+      transform: translateY(-2px);
+    }
+
+    .category-btn.active {
+      background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+      color: white;
+      border-color: transparent;
     }
 
     .hero-stats {
@@ -209,13 +332,7 @@
       background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
     }
 
-    /* Featured Events Carousel */
-    .featured-section {
-      padding: 5rem 0;
-      background: linear-gradient(45deg, #f8f9fa, #ffffff);
-      position: relative;
-    }
-
+    /* Section Title */
     .section-title {
       font-size: 3rem;
       font-weight: 700;
@@ -237,42 +354,10 @@
       border-radius: 2px;
     }
 
-    .event-carousel {
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-    }
-
-    .carousel-item img {
-      height: 500px;
-      object-fit: cover;
-      filter: brightness(0.8);
-    }
-
-    .carousel-caption {
-      background: linear-gradient(transparent, rgba(0,0,0,0.7));
-      padding: 3rem;
-      border-radius: 20px;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-
-    .carousel-caption h3 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .carousel-caption p {
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    /* Enhanced Event Cards */
+    /* Upcoming Events Grid */
     .events-grid {
       padding: 5rem 0;
+      background: linear-gradient(45deg, #f8f9fa, #ffffff);
     }
 
     .event-card {
@@ -312,6 +397,7 @@
       height: 250px;
       object-fit: cover;
       transition: transform 0.4s ease;
+      width: 100%;
     }
 
     .event-card:hover img {
@@ -364,98 +450,30 @@
       z-index: 3;
     }
 
-    /* Testimonials Section */
-    .testimonials-section {
-      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-      color: white;
-      padding: 5rem 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .testimonials-section::before {
-      content: '';
+    .category-badge {
+      background: var(--light-blue);
+      color: var(--primary-blue);
+      padding: 0.4rem 1rem;
+      border-radius: 15px;
+      font-size: 0.85rem;
+      font-weight: 600;
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-      background-size: 30px 30px;
-      animation: backgroundMove 30s linear infinite;
+      top: 15px;
+      left: 15px;
+      z-index: 3;
     }
 
-    @keyframes backgroundMove {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(30px, 30px); }
-    }
-
-    .testimonial-card {
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 2rem;
+    /* No Results Message */
+    .no-results {
       text-align: center;
-      border: 1px solid rgba(255,255,255,0.2);
-      transition: all 0.3s ease;
-    }
-
-    .testimonial-card:hover {
-      background: rgba(255,255,255,0.15);
-      transform: translateY(-5px);
-    }
-
-    .testimonial-text {
-      font-size: 1.1rem;
-      font-style: italic;
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-    }
-
-    .testimonial-author {
-      font-weight: 600;
-      color: var(--accent-blue);
-    }
-
-    .stars {
-      color: #ffd700;
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
-    }
-
-    /* Newsletter Section */
-    .newsletter-section {
-      background: linear-gradient(45deg, #f8f9fa, #ffffff);
-      padding: 4rem 0;
-    }
-
-    .newsletter-card {
-      background: white;
-      border-radius: 25px;
       padding: 3rem;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-      text-align: center;
+      color: var(--light-text);
     }
 
-    .newsletter-input {
-      border-radius: 50px;
-      border: 2px solid #e9ecef;
-      padding: 15px 25px;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-    }
-
-    .newsletter-input:focus {
-      border-color: var(--secondary-blue);
-      box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.15);
-      outline: none;
-    }
-
-    .btn-newsletter {
-      border-radius: 50px;
-      padding: 15px 30px;
-      font-weight: 600;
-      margin-left: 10px;
+    .no-results i {
+      font-size: 4rem;
+      color: var(--accent-blue);
+      margin-bottom: 1rem;
     }
 
     /* Enhanced Footer */
@@ -548,14 +566,21 @@
         font-size: 2rem;
       }
       
-      .btn-newsletter {
-        margin-left: 0;
-        margin-top: 10px;
-        width: 100%;
+      .category-filters {
+        gap: 0.5rem;
+      }
+
+      .category-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
       }
       
       .navbar-brand {
         font-size: 1.5rem;
+      }
+
+      .search-filter-container {
+        padding: 1.5rem;
       }
     }
 
@@ -584,7 +609,6 @@
     }
   </style>
 </head>
-
 
 <body>
 
@@ -620,7 +644,7 @@
         <h1 class="hero-title">Welcome to K-Stage</h1>
         <p class="hero-subtitle">Your premier destination for unforgettable K-pop concerts, fan meetings, and exclusive events across Australia</p>
         <div class="d-flex gap-3 justify-content-center flex-wrap">
-          <a href="events.html" class="btn btn-primary btn-lg">
+          <a href="#events" class="btn btn-primary btn-lg">
             <i class="bi bi-calendar-event me-2"></i>Explore Events
           </a>
           <a href="create-event.html" class="btn btn-outline-primary btn-lg">
@@ -649,57 +673,96 @@
     </div>
   </section>
 
-  <!-- Featured Events Carousel -->
-  <section class="featured-section" data-aos="fade-up">
+  <!-- What We Offer Section -->
+  <section class="what-we-offer" data-aos="fade-up">
     <div class="container">
-      <h2 class="section-title">Featured Events</h2>
-      <div id="featuredCarousel" class="carousel slide event-carousel" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div class="carousel-item active">
-            <img src="C:\Users\User\Downloads\KSTAGE\static\images\twice.jpeg" class="d-block w-100" alt="TWICE Concert">
-            <div class="carousel-caption">
-              <h3>TWICE Ready To Be World Tour</h3>
-              <p>Experience the magic of TWICE live at Qudos Bank Arena, Sydney</p>
-              <a href="event-details.html" class="btn btn-primary btn-lg">View Details</a>
+      <h2 class="section-title">What We Offer</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="offer-card">
+            <div class="offer-icon">
+              <i class="bi bi-music-note-list"></i>
             </div>
-          </div>
-          <div class="carousel-item">
-            <img src="static/images/blackpink.jpg" class="d-block w-100" alt="BLACKPINK Concert">
-            <div class="carousel-caption">
-              <h3>BLACKPINK World Tour</h3>
-              <p>The queens of K-pop bring their electrifying performance to Australia</p>
-              <a href="event-details.html" class="btn btn-primary btn-lg">View Details</a>
-            </div>
-          </div>
-          <div class="carousel-item">
-            <img src="C:\Users\User\Downloads\KSTAGE\static\images\kpopfestival.webp" class="d-block w-100" alt="Multi-Group Concert">
-            <div class="carousel-caption">
-              <h3>K-pop Festival 2025</h3>
-              <p>Multiple groups, one unforgettable night of K-pop magic</p>
-              <a href="event-details.html" class="btn btn-primary btn-lg">View Details</a>
-            </div>
+            <h4>K-pop Concerts</h4>
+            <p>Experience electrifying live performances from your favorite K-pop artists and groups, featuring world-class production and unforgettable moments.</p>
           </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
-          <span class="carousel-control-next-icon"></span>
-        </button>
+        <div class="col-md-4">
+          <div class="offer-card">
+            <div class="offer-icon">
+              <i class="bi bi-people"></i>
+            </div>
+            <h4>Fan Meetings</h4>
+            <p>Get up close and personal with K-pop stars through exclusive fan meetings, hi-touch events, and intimate gatherings designed for true fans.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="offer-card">
+            <div class="offer-icon">
+              <i class="bi bi-star"></i>
+            </div>
+            <h4>Exclusive Events</h4>
+            <p>Access special K-pop festivals, album showcases, variety show recordings, and other one-of-a-kind experiences you won't find anywhere else.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search and Filter Section -->
+  <section class="search-filter-section">
+    <div class="container">
+      <div class="search-filter-container" data-aos="fade-up">
+        <h3 class="text-center mb-4" style="color: var(--primary-blue); font-weight: 700;">
+          <i class="bi bi-funnel me-2"></i>Find Your Perfect Event
+        </h3>
+        
+        <!-- Search Box -->
+        <div class="search-box">
+          <input 
+            type="text" 
+            class="search-input" 
+            id="searchInput"
+            placeholder="Search by event name, artist, or location...">
+          <button class="search-btn" onclick="filterEvents()">
+            <i class="bi bi-search"></i>
+          </button>
+        </div>
+
+        <!-- Category Filters -->
+        <div class="category-filters">
+          <button class="category-btn active" data-category="all" onclick="selectCategory('all', this)">
+            <i class="bi bi-grid me-1"></i>All Events
+          </button>
+          <button class="category-btn" data-category="concert" onclick="selectCategory('concert', this)">
+            <i class="bi bi-music-note-list me-1"></i>Concerts
+          </button>
+          <button class="category-btn" data-category="fanmeeting" onclick="selectCategory('fanmeeting', this)">
+            <i class="bi bi-people me-1"></i>Fan Meetings
+          </button>
+          <button class="category-btn" data-category="festival" onclick="selectCategory('festival', this)">
+            <i class="bi bi-star me-1"></i>Festivals
+          </button>
+          <button class="category-btn" data-category="showcase" onclick="selectCategory('showcase', this)">
+            <i class="bi bi-award me-1"></i>Showcases
+          </button>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Upcoming Events Grid -->
-  <section class="events-grid">
+  <section class="events-grid" id="events">
     <div class="container">
       <h2 class="section-title" data-aos="fade-up">Upcoming Events</h2>
-      <div class="row g-4">
+      
+      <div class="row g-4" id="eventsContainer">
         
-        <div class="col-lg-4 col-md-6 loading" data-aos="fade-up" data-aos-delay="100">
+        <div class="col-lg-4 col-md-6 loading event-item" data-category="concert" data-name="TWICE 5th World Tour: Ready To Be" data-location="Sydney" data-aos="fade-up" data-aos-delay="100">
           <div class="card event-card">
+            <div class="category-badge">Concert</div>
             <div class="price-tag">$249</div>
-            <img src="C:\Users\User\Downloads\KSTAGE\static\images\twice.jpeg" class="card-img-top" alt="TWICE Concert">
+            <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=500" class="card-img-top" alt="TWICE Concert" onerror="this.src='https://via.placeholder.com/500x250/0d47a1/ffffff?text=TWICE+Concert'">
             <div class="card-body">
               <h5 class="card-title">TWICE 5th World Tour: Ready To Be</h5>
               <div class="event-meta">
@@ -719,20 +782,21 @@
           </div>
         </div>
 
-        <div class="col-lg-4 col-md-6 loading" data-aos="fade-up" data-aos-delay="200">
+        <div class="col-lg-4 col-md-6 loading event-item" data-category="fanmeeting" data-name="Stray Kids Fan Meeting" data-location="Sydney" data-aos="fade-up" data-aos-delay="100">
           <div class="card event-card">
-            <div class="price-tag">$299</div>
-            <img src="C:\Users\User\Downloads\KSTAGE\static\images\stadium.jpeg" class="card-img-top" alt="Stray Kids Concert">
+            <div class="category-badge">Fan Meeting</div>
+            <div class="price-tag">$179</div>
+            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500" class="card-img-top" alt="Stray Kids Fan Meeting" onerror="this.src='https://via.placeholder.com/500x250/0d47a1/ffffff?text=Stray+Kids+Fan+Meeting'">
             <div class="card-body">
-              <h5 class="card-title">Stray Kids: 5-Star Dome Tour</h5>
+              <h5 class="card-title">Stray Kids Fan Meeting</h5>
               <div class="event-meta">
                 <div class="meta-item">
                   <i class="bi bi-calendar"></i>
-                  <span>20 Nov 2025</span>
+                  <span>15 Dec 2025</span>
                 </div>
                 <div class="meta-item">
                   <i class="bi bi-geo-alt"></i>
-                  <span>Melbourne</span>
+                  <span>Sydney</span>
                 </div>
               </div>
               <a href="event-details.html" class="btn btn-outline-primary w-100">
@@ -742,20 +806,21 @@
           </div>
         </div>
 
-        <div class="col-lg-4 col-md-6 loading" data-aos="fade-up" data-aos-delay="300">
+        <div class="col-lg-4 col-md-6 loading event-item" data-category="festival" data-name="K-pop Festival 2025" data-location="Perth" data-aos="fade-up" data-aos-delay="200">
           <div class="card event-card">
-            <div class="price-tag">$199</div>
-            <img src="C:\Users\User\Downloads\KSTAGE\static\images\seventeen.jpeg" class="card-img-top" alt="Seventeen Concert">
+            <div class="category-badge">Festival</div>
+            <div class="price-tag">$329</div>
+            <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=500" class="card-img-top" alt="K-pop Festival" onerror="this.src='https://via.placeholder.com/500x250/0d47a1/ffffff?text=K-pop+Festival'">
             <div class="card-body">
-              <h5 class="card-title">Seventeen: Be The Sun World Tour</h5>
+              <h5 class="card-title">K-pop Festival 2025</h5>
               <div class="event-meta">
                 <div class="meta-item">
                   <i class="bi bi-calendar"></i>
-                  <span>10 Dec 2025</span>
+                  <span>31 Jan 2026</span>
                 </div>
                 <div class="meta-item">
                   <i class="bi bi-geo-alt"></i>
-                  <span>Brisbane</span>
+                  <span>Perth</span>
                 </div>
               </div>
               <a href="event-details.html" class="btn btn-outline-primary w-100">
@@ -765,6 +830,37 @@
           </div>
         </div>
 
+        <div class="col-lg-4 col-md-6 loading event-item" data-category="showcase" data-name="ATEEZ Album Showcase" data-location="Adelaide" data-aos="fade-up" data-aos-delay="300">
+          <div class="card event-card">
+            <div class="category-badge">Showcase</div>
+            <div class="price-tag">$149</div>
+            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=500" class="card-img-top" alt="ATEEZ Showcase" onerror="this.src='https://via.placeholder.com/500x250/0d47a1/ffffff?text=ATEEZ+Showcase'">
+            <div class="card-body">
+              <h5 class="card-title">ATEEZ Album Showcase</h5>
+              <div class="event-meta">
+                <div class="meta-item">
+                  <i class="bi bi-calendar"></i>
+                  <span>5 Feb 2026</span>
+                </div>
+                <div class="meta-item">
+                  <i class="bi bi-geo-alt"></i>
+                  <span>Adelaide</span>
+                </div>
+              </div>
+              <a href="event-details.html" class="btn btn-outline-primary w-100">
+                <i class="bi bi-ticket me-2"></i>View Details
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- No Results Message -->
+      <div id="noResults" class="no-results" style="display: none;">
+        <i class="bi bi-search"></i>
+        <h3>No Events Found</h3>
+        <p>Try adjusting your search or filter criteria</p>
       </div>
 
       <div class="text-center mt-5" data-aos="fade-up">
@@ -775,52 +871,17 @@
     </div>
   </section>
 
-  <!-- Testimonials Section -->
-  <section class="testimonials-section">
-    <div class="container">
-      <h2 class="section-title text-white" data-aos="fade-up">What Our Fans Say</h2>
-      <div class="row g-4">
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-          <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p class="testimonial-text">"K-Stage made booking tickets so easy! The TWICE concert was absolutely incredible. Best night of my life!"</p>
-            <div class="testimonial-author">- Sarah M., Sydney</div>
-          </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p class="testimonial-text">"Professional service and amazing events. K-Stage is the go-to platform for K-pop fans in Australia!"</p>
-            <div class="testimonial-author">- James L., Melbourne</div>
-          </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-          <div class="testimonial-card">
-            <div class="stars">★★★★★</div>
-            <p class="testimonial-text">"From booking to the event itself, everything was perfect. Can't wait for the next concert!"</p>
-            <div class="testimonial-author">- Emma K., Brisbane</div>
-          </div>
-        </div>
+      <!-- No Results Message -->
+      <div id="noResults" class="no-results" style="display: none;">
+        <i class="bi bi-search"></i>
+        <h3>No Events Found</h3>
+        <p>Try adjusting your search or filter criteria</p>
       </div>
-    </div>
-  </section>
 
-  <!-- Newsletter Section -->
-  <section class="newsletter-section">
-    <div class="container">
-      <div class="row justify-content-center">
-        <div class="col-lg-8">
-          <div class="newsletter-card" data-aos="fade-up">
-            <h3 class="mb-4">Stay Updated with K-Stage</h3>
-            <p class="mb-4">Be the first to know about upcoming events, exclusive presales, and special offers!</p>
-            <form class="d-flex flex-column flex-md-row gap-3">
-              <input type="email" class="form-control newsletter-input flex-grow-1" placeholder="Enter your email address" required>
-              <button type="submit" class="btn btn-primary btn-newsletter">
-                <i class="bi bi-envelope me-2"></i>Subscribe
-              </button>
-            </form>
-          </div>
-        </div>
+      <div class="text-center mt-5" data-aos="fade-up">
+        <a href="events.html" class="btn btn-primary btn-lg">
+          <i class="bi bi-grid me-2"></i>View All Events
+        </a>
       </div>
     </div>
   </section>
@@ -890,6 +951,70 @@
       once: true
     });
 
+    // Global variables for filtering
+    let currentCategory = 'all';
+
+    // Category selection function
+    function selectCategory(category, button) {
+      currentCategory = category;
+      
+      // Update button states
+      document.querySelectorAll('.category-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      button.classList.add('active');
+      
+      // Filter events
+      filterEvents();
+    }
+
+    // Filter events function
+    function filterEvents() {
+      const searchInput = document.getElementById('searchInput').value.toLowerCase();
+      const eventItems = document.querySelectorAll('.event-item');
+      const noResults = document.getElementById('noResults');
+      let visibleCount = 0;
+
+      eventItems.forEach(item => {
+        const category = item.getAttribute('data-category');
+        const name = item.getAttribute('data-name').toLowerCase();
+        const location = item.getAttribute('data-location').toLowerCase();
+        
+        // Check category match
+        const categoryMatch = currentCategory === 'all' || category === currentCategory;
+        
+        // Check search match
+        const searchMatch = searchInput === '' || 
+                           name.includes(searchInput) || 
+                           location.includes(searchInput);
+        
+        // Show or hide item
+        if (categoryMatch && searchMatch) {
+          item.style.display = 'block';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Show/hide no results message
+      if (visibleCount === 0) {
+        noResults.style.display = 'block';
+      } else {
+        noResults.style.display = 'none';
+      }
+    }
+
+    // Add event listener for search input
+    document.getElementById('searchInput').addEventListener('input', filterEvents);
+
+    // Allow Enter key to trigger search
+    document.getElementById('searchInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        filterEvents();
+      }
+    });
+
     // Navbar scroll effect
     window.addEventListener('scroll', function() {
       const navbar = document.querySelector('.navbar');
@@ -926,25 +1051,6 @@
       observer.observe(el);
     });
 
-    // Newsletter form submission
-    document.querySelector('.newsletter-card form').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const email = this.querySelector('input[type="email"]').value;
-      if (email) {
-        // Simulate subscription success
-        const button = this.querySelector('button');
-        const originalText = button.innerHTML;
-        button.innerHTML = '<i class="bi bi-check-circle me-2"></i>Subscribed!';
-        button.classList.replace('btn-primary', 'btn-success');
-        
-        setTimeout(() => {
-          button.innerHTML = originalText;
-          button.classList.replace('btn-success', 'btn-primary');
-          this.reset();
-        }, 3000);
-      }
-    });
-
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
@@ -957,21 +1063,6 @@
           });
         }
       });
-    });
-
-    // Carousel auto-play control
-    const carousel = new bootstrap.Carousel(document.querySelector('#featuredCarousel'), {
-      interval: 5000,
-      ride: 'carousel'
-    });
-
-    // Pause carousel on hover
-    document.querySelector('#featuredCarousel').addEventListener('mouseenter', () => {
-      carousel.pause();
-    });
-
-    document.querySelector('#featuredCarousel').addEventListener('mouseleave', () => {
-      carousel.cycle();
     });
 
     // Statistics counter animation
@@ -1009,32 +1100,9 @@
     }, { threshold: 0.5 });
 
     heroObserver.observe(document.querySelector('.hero-stats'));
-
-    // Add loading states to buttons
-    document.querySelectorAll('.btn').forEach(button => {
-      button.addEventListener('click', function() {
-        if (!this.getAttribute('href') || this.getAttribute('href').startsWith('#')) {
-          return;
-        }
-        
-        const originalText = this.innerHTML;
-        this.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Loading...';
-        this.disabled = true;
-        
-        setTimeout(() => {
-          this.innerHTML = originalText;
-          this.disabled = false;
-        }, 1000);
-      });
-    });
   </script>
 
 </body>
 
-
-</html>
-
-
-
-
-
+            </div>
+          </div>
