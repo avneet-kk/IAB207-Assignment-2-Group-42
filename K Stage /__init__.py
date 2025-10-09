@@ -52,6 +52,26 @@ def create_app():
     #app.errorhandler(500)
     def server_error(e):
     # Render custom 500 page
-    return render_template('500.html'), 500  
+    return render_template('500.html'), 500 
+ 
+@app.route("/event/<int:event_id>", methods=["GET", "POST"])
+@login_required
+def event_detail(event_id):
+    event = Event.query.get_or_404(event_id)
+    form = CommentForm()
+
+    if form.validate_on_submit():
+        new_comment = Comment(
+            content=form.comment.data,
+            user_id=current_user.id,
+            event_id=event.id
+        )
+        db.session.add(new_comment)
+        db.session.commit()
+        flash("Your comment was posted!", "success")
+        return redirect(url_for("event_detail", event_id=event.id))
+
+    return render_template("event_detail.html", event=event, form=form)
+
     
     return app
