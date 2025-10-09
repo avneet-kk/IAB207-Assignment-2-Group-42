@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template
-from .models import Events 
+from .forms import EventForm
 
 destbp = Blueprint('destination', __name__, url_prefix='/destinations')
 
@@ -7,6 +6,15 @@ destbp = Blueprint('destination', __name__, url_prefix='/destinations')
 def show (id):
     Events = get_event ()
     return render_template (destination/show.html)
+
+@destbp.route('/create', methods = ['GET', 'POST'])
+def create():
+  print('Method type: ', request.method)
+  form = EventForm()
+  if form.validate_on_submit():
+    print('Successfully created new travel destination')
+    # return redirect(url_for('destination.create'))
+  return render_template('template/create.html', form=form)
 
 def get_event():
     b_desc = """"Get ready for the ultimate ARMY experience! Join us for an unforgettable BTS Fan Signing Event, where you’ll have the rare opportunity to meet your favorite members of BTS up close. This exclusive event brings fans together to celebrate love, music, and connection — the true essence of BTS. """
