@@ -45,7 +45,7 @@ class EventForm(FlaskForm):
     location = StringField('Venue', validators=[InputRequired()])
     price = StringField('Ticket Price', validators=[InputRequired()])
     available = StringField('Ticket Available', validators=[InputRequired()])
-    image = StringField('Event Image', validators=[InputRequired()]
+    image = StringField('Event Image', validators=[InputRequired()])
     description = TextAreaField('Description', validators = [InputRequired()])
 
     #submit button
@@ -56,4 +56,3 @@ class EventForm(FlaskForm):
 class CommentForm(FlaskForm):
     comment = TextAreaField("Add a Comment", validators=[DataRequired(), Length(min=1, max=500)])
     submit = SubmitField("Post Comment")
-
