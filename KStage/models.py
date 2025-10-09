@@ -29,7 +29,12 @@ class Event(db.Model):
         return "Open"
 
 class Comment(db.Model):
-    pass
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.String(2000))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    user_id  = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
+    event = db.relationship('Event') 
 
 class Order(db.Model): #Booking
     id = db.Column(db.Integer, primary_key=True)
