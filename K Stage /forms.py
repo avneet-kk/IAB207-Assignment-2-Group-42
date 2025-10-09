@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField, SelectField
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange
+from datetime import date 
+from datetime import time 
 
 # creates the login information
 class LoginForm(FlaskForm):
@@ -24,3 +26,27 @@ class RegisterForm(FlaskForm):
 class BookingForm(FlaskForm):
     qty = IntegerField("Tickets", validators=[InputRequired(), NumberRange(min=1)])
     submit = SubmitField("Book Now")
+
+# for creating events
+class EventForm(FlaskForm):
+    name = StringField('Event Title', validators=[InputRequired()])
+    # Category dropdown box
+    category = SelectField(
+        'Category',
+        choices=[
+            ('consert'),
+            ('Fan Meeting'),
+            ('Dance Competition'),
+            ('Multi-Group '),
+        ],
+    )
+    date = date('date', validators=[InputRequired()])
+    time = time('time', validators=[InputRequired()])
+    location = StringField('Venue', validators=[InputRequired()])
+    price = StringField('Ticket Price', validators=[InputRequired()])
+    available = StringField('Ticket Available', validators=[InputRequired()])
+    image = StringField('Event Image', validators=[InputRequired()]
+    description = TextAreaField('Description', validators = [InputRequired()])
+
+    #submit button
+    submit = SubmitField('Create Event')
