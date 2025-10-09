@@ -29,6 +29,7 @@ class Event(db.Model):
         return "Open"
 
 class Comment(db.Model):
+    pass
 
 class Order(db.Model): #Booking
     id = db.Column(db.Integer, primary_key=True)
