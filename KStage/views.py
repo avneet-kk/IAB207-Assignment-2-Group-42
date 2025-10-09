@@ -1,13 +1,13 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from __init__ import db
-from models import Event, Order
-from forms import BookingForm
+from . import db
+from .models import Event, Order
+from .forms import BookingForm
 import secrets
 
 main_bp = Blueprint('main', __name__)
 
-#main_bp.route('/')
+@main_bp.route('/')
 def index():
     """Landing page."""
     # If you prefer to route visitors straight to events, use:
