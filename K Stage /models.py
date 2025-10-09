@@ -41,28 +41,3 @@ class Order(db.Model): #Booking
 
 
 
-class Event:
-    def __init__(self, name, description, date, venue, time, tickets, duration, price):
-        self.name = name
-        self.description = description
-        self.date = date
-        self.venue = venue
-        self.time = time
-        self.tickets = tickets
-        self.duration = duration
-       
-    def set_feature_section(self, feature_section):
-        self.set_feature_section.append(feature_section)
-
-    def __repr__(self):
-        return f"Name: {self.name}, Date: {self.date}, Venue: {self.venue}, Time: {self.time}, Tickets: {self.tickets}, Duration {self.duration}"
-
-
-class Feature_section: 
-    def __init__(self,hit_songs, visual_spectacle, fan_interaction):
-        self.hit_songs = hit_songs
-        self.visual_spectacle = visual_spectacle
-        self.fan_interaction = fan_interaction
-
-    def __repr__(self):
-        return f"Hit Songs {self.hit_songs}, \n Visual Spectacle {self.visual_spectacle}, \n Fan Interaction {self.fan_interaction}"
