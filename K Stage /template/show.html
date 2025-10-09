@@ -106,33 +106,37 @@
     </div>
   </section>
 
-  <!-- Features Section -->
+    <!-- Features Section -->
   <section class="feature-section">
     <div class="container">
       <h2 class="text-center text-primary mb-5">What to Expect</h2>
+      
+      {% for feature-section in destination.feature %}
       <div class="row g-4">
         <div class="col-md-4">
           <div class="feature-card">
             <i class="bi bi-music-note-list feature-icon"></i>
             <h5>Hit Songs</h5>
-            <p>Experience all of TWICE's biggest hits including "TT", "Likey", "What Is Love?", and tracks from their latest albums.</p>
+            <p>{{feature_section.hit_songs}}</p>
           </div>
         </div>
         <div class="col-md-4">
           <div class="feature-card">
             <i class="bi bi-camera-reels feature-icon"></i>
             <h5>Visual Spectacle</h5>
-            <p>State-of-the-art lighting, LED screens, and stunning stage effects that create an immersive concert experience.</p>
+            <p>{{feature_section.visual_spectacle}}</p>
           </div>
         </div>
         <div class="col-md-4">
           <div class="feature-card">
             <i class="bi bi-people feature-icon"></i>
             <h5>Fan Interactions</h5>
-            <p>Special moments with ONCE, fan chants, and exclusive merchandise available only at the concert venue.</p>
+            <p>{{feature_section.fan_interaction}}</p>
           </div>
         </div>
       </div>
+    {% endfor %} 
+    
     </div>
   </section>
 
