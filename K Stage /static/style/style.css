@@ -1,4 +1,13 @@
-    /* Enhanced Navbar */
+    :root {
+      --primary-blue: #0d47a1;
+      --secondary-blue: #1976d2;
+      --light-blue: #e3f2fd;
+      --accent-blue: #90caf9;
+      --dark-text: #2c3e50;
+      --light-text: #7f8c8d;
+    }
+ 
+ /* Enhanced Navbar */
     .navbar {
       background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
       backdrop-filter: blur(10px);
@@ -48,6 +57,7 @@
       align-items: center;
       position: relative;
       overflow: hidden;
+      padding-top: 80px;
     }
 
     .hero-section::before {
@@ -108,6 +118,130 @@
         opacity: 1;
         transform: translateY(0);
       }
+    }
+
+    /* What We Offer Section */
+    .what-we-offer {
+      background: white;
+      padding: 5rem 0;
+    }
+
+    .offer-card {
+      background: linear-gradient(135deg, #f8f9fa, #ffffff);
+      border-radius: 20px;
+      padding: 2.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      height: 100%;
+    }
+
+    .offer-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--secondary-blue);
+      box-shadow: 0 15px 40px rgba(13, 71, 161, 0.15);
+    }
+
+    .offer-icon {
+      font-size: 3.5rem;
+      color: var(--secondary-blue);
+      margin-bottom: 1.5rem;
+    }
+
+    .offer-card h4 {
+      color: var(--primary-blue);
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .offer-card p {
+      color: var(--light-text);
+      line-height: 1.6;
+    }
+
+    /* Search and Filter Section */
+    .search-filter-section {
+      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+      padding: 3rem 0;
+      position: relative;
+    }
+
+    .search-filter-container {
+      background: white;
+      border-radius: 20px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+    }
+
+    .search-box {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 15px 50px 15px 20px;
+      border: 2px solid #e9ecef;
+      border-radius: 50px;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--secondary-blue);
+      box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.15);
+    }
+
+    .search-btn {
+      position: absolute;
+      right: 5px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+      border: none;
+      color: white;
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .search-btn:hover {
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 5px 15px rgba(13, 71, 161, 0.3);
+    }
+
+    .category-filters {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .category-btn {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid var(--secondary-blue);
+      background: white;
+      color: var(--secondary-blue);
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+    }
+
+    .category-btn:hover {
+      background: var(--light-blue);
+      transform: translateY(-2px);
+    }
+
+    .category-btn.active {
+      background: linear-gradient(135deg, var(--secondary-blue), var(--primary-blue));
+      color: white;
+      border-color: transparent;
     }
 
     .hero-stats {
@@ -180,13 +314,7 @@
       background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
     }
 
-    /* Featured Events Carousel */
-    .featured-section {
-      padding: 5rem 0;
-      background: linear-gradient(45deg, #f8f9fa, #ffffff);
-      position: relative;
-    }
-
+    /* Section Title */
     .section-title {
       font-size: 3rem;
       font-weight: 700;
@@ -208,42 +336,10 @@
       border-radius: 2px;
     }
 
-    .event-carousel {
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-    }
-
-    .carousel-item img {
-      height: 500px;
-      object-fit: cover;
-      filter: brightness(0.8);
-    }
-
-    .carousel-caption {
-      background: linear-gradient(transparent, rgba(0,0,0,0.7));
-      padding: 3rem;
-      border-radius: 20px;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-
-    .carousel-caption h3 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      margin-bottom: 1rem;
-    }
-
-    .carousel-caption p {
-      font-size: 1.2rem;
-      margin-bottom: 1.5rem;
-    }
-
-    /* Enhanced Event Cards */
+    /* Upcoming Events Grid */
     .events-grid {
       padding: 5rem 0;
+      background: linear-gradient(45deg, #f8f9fa, #ffffff);
     }
 
     .event-card {
@@ -283,6 +379,7 @@
       height: 250px;
       object-fit: cover;
       transition: transform 0.4s ease;
+      width: 100%;
     }
 
     .event-card:hover img {
@@ -335,98 +432,30 @@
       z-index: 3;
     }
 
-    /* Testimonials Section */
-    .testimonials-section {
-      background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
-      color: white;
-      padding: 5rem 0;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .testimonials-section::before {
-      content: '';
+    .category-badge {
+      background: var(--light-blue);
+      color: var(--primary-blue);
+      padding: 0.4rem 1rem;
+      border-radius: 15px;
+      font-size: 0.85rem;
+      font-weight: 600;
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
-      background-size: 30px 30px;
-      animation: backgroundMove 30s linear infinite;
+      top: 15px;
+      left: 15px;
+      z-index: 3;
     }
 
-    @keyframes backgroundMove {
-      0% { transform: translate(0, 0); }
-      100% { transform: translate(30px, 30px); }
-    }
-
-    .testimonial-card {
-      background: rgba(255,255,255,0.1);
-      backdrop-filter: blur(10px);
-      border-radius: 20px;
-      padding: 2rem;
+    /* No Results Message */
+    .no-results {
       text-align: center;
-      border: 1px solid rgba(255,255,255,0.2);
-      transition: all 0.3s ease;
-    }
-
-    .testimonial-card:hover {
-      background: rgba(255,255,255,0.15);
-      transform: translateY(-5px);
-    }
-
-    .testimonial-text {
-      font-size: 1.1rem;
-      font-style: italic;
-      margin-bottom: 1.5rem;
-      line-height: 1.6;
-    }
-
-    .testimonial-author {
-      font-weight: 600;
-      color: var(--accent-blue);
-    }
-
-    .stars {
-      color: #ffd700;
-      margin-bottom: 1rem;
-      font-size: 1.2rem;
-    }
-
-    /* Newsletter Section */
-    .newsletter-section {
-      background: linear-gradient(45deg, #f8f9fa, #ffffff);
-      padding: 4rem 0;
-    }
-
-    .newsletter-card {
-      background: white;
-      border-radius: 25px;
       padding: 3rem;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-      text-align: center;
+      color: var(--light-text);
     }
 
-    .newsletter-input {
-      border-radius: 50px;
-      border: 2px solid #e9ecef;
-      padding: 15px 25px;
-      font-size: 1rem;
-      transition: all 0.3s ease;
-    }
-
-    .newsletter-input:focus {
-      border-color: var(--secondary-blue);
-      box-shadow: 0 0 0 0.2rem rgba(25, 118, 210, 0.15);
-      outline: none;
-    }
-
-    .btn-newsletter {
-      border-radius: 50px;
-      padding: 15px 30px;
-      font-weight: 600;
-      margin-left: 10px;
+    .no-results i {
+      font-size: 4rem;
+      color: var(--accent-blue);
+      margin-bottom: 1rem;
     }
 
     /* Enhanced Footer */
@@ -519,14 +548,21 @@
         font-size: 2rem;
       }
       
-      .btn-newsletter {
-        margin-left: 0;
-        margin-top: 10px;
-        width: 100%;
+      .category-filters {
+        gap: 0.5rem;
+      }
+
+      .category-btn {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.85rem;
       }
       
       .navbar-brand {
         font-size: 1.5rem;
+      }
+
+      .search-filter-container {
+        padding: 1.5rem;
       }
     }
 
