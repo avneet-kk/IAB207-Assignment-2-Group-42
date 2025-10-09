@@ -47,12 +47,12 @@ def create_app():
     #app.errorhandler(404)
     def not_found(e):
     # Render custom 404 page
-    return render_template('404.html'), 404
+      return render_template('404.html'), 404
 
     #app.errorhandler(500)
     def server_error(e):
     # Render custom 500 page
-    return render_template('500.html'), 500 
+      return render_template('500.html'), 500 
  
 @app.route("/event/<int:event_id>", methods=["GET", "POST"])
 @login_required
