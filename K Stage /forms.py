@@ -50,3 +50,10 @@ class EventForm(FlaskForm):
 
     #submit button
     submit = SubmitField('Create Event')
+
+#for comments
+
+class CommentForm(FlaskForm):
+    comment = TextAreaField("Add a Comment", validators=[DataRequired(), Length(min=1, max=500)])
+    submit = SubmitField("Post Comment")
+
