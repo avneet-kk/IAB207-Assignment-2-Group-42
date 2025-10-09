@@ -1,3 +1,5 @@
+from flask import Blueprint, render_template, redirect, url_for
+from .models import Events 
 from .forms import EventForm
 
 destbp = Blueprint('destination', __name__, url_prefix='/destinations')
@@ -5,7 +7,7 @@ destbp = Blueprint('destination', __name__, url_prefix='/destinations')
 @destbp.route ('/<id>')
 def show (id):
     Events = get_event ()
-    return render_template (destination/show.html)
+    return render_template ('destination/show.html', event = event)
 
 @destbp.route('/create', methods = ['GET', 'POST'])
 def create():
@@ -13,7 +15,7 @@ def create():
   form = EventForm()
   if form.validate_on_submit():
     print('Successfully created new travel destination')
-    # return redirect(url_for('destination.create'))
+    return redirect(url_for('destination.create'))
   return render_template('template/create.html', form=form)
 
 def get_event():
