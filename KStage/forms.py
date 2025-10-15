@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField, SelectField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField, SelectField, DateField, TimeField
 from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange
 from datetime import date 
 from datetime import time 
@@ -40,8 +40,8 @@ class EventForm(FlaskForm):
             ('Multi-Group '),
         ],
     )
-    date = date('date', validators=[InputRequired()])
-    time = time('time', validators=[InputRequired()])
+    date = DateField('date', validators=[InputRequired()])
+    time = TimeField('time', validators=[InputRequired()])
     location = StringField('Venue', validators=[InputRequired()])
     price = StringField('Ticket Price', validators=[InputRequired()])
     available = StringField('Ticket Available', validators=[InputRequired()])
@@ -54,5 +54,5 @@ class EventForm(FlaskForm):
 #for comments
 
 class CommentForm(FlaskForm):
-    comment = TextAreaField("Add a Comment", validators=[DataRequired(), Length(min=1, max=500)])
+    comment = TextAreaField("Add a Comment", validators=[InputRequired(), Length(min=1, max=500)])
     submit = SubmitField("Post Comment")
