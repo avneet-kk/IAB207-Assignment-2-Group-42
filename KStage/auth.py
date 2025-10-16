@@ -32,3 +32,8 @@ def login():
         else:
             flash(error)
     return render_template('user.html', form=login_form, heading='Login')
+
+@auth_bp.route('/register', methods=['GET', 'POST'])
+# view function
+def register():
+    return "Coming Soon!! xD"

@@ -14,7 +14,7 @@ def index():
     # return redirect(url_for('main.events'))
     return render_template('index.html')
 
-#main_bp.route('/events')
+@main_bp.route('/events')
 def events():
     """List all events from the database."""
     events = Event.query.order_by(Event.date.asc()).all()
@@ -56,7 +56,7 @@ def event_detail(event_id: int):
     # GET or invalid POST -> render page with form + event details
     return render_template('event_detail.html', event=event, form=form)
 
-#main_bp.route('/bookings')
+@main_bp.route('/bookings')
 #login_required
 def booking_history():
     """Show the logged-in user's bookings (most recent first)."""
