@@ -20,6 +20,20 @@
       {% endfor %}
     </div>
 <!--NEED TO ADD ADDRESS AND PHONE NUMBER-->
+<div class="col-md-6">
+      {{ form.last_name.label(class="form-label') }}
+      {{ form.last_name(class="form-control") }}
+      {% for error in form.last_name.errors %}
+        <div class="text-danger small">{{ error }}</div>
+      {% endfor %}
+
+      <div class="col-md-6">
+      {{ form.last_name.label(class="form-label') }}
+      {{ form.last_name(class="form-control") }}
+      {% for error in form.last_name.errors %}
+        <div class="text-danger small">{{ error }}</div>
+      {% endfor %}
+
     <div class="col-12">
       {{ form.email_address.label(class="form-label") }}
       {{ form.email(class="form-control") }}
