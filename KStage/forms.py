@@ -6,19 +6,20 @@ from datetime import time
 
 # creates the login information
 class LoginForm(FlaskForm):
-    user_name=StringField("User Name", validators=[InputRequired('Enter user name')])
-    password=PasswordField("Password", validators=[InputRequired('Enter user password')])
+    email =StringField("Email", validators=[InputRequired(), Email()])
+    password=PasswordField("Password", validators=[InputRequired()])
     submit = SubmitField("Login")
 
  # this is the registration form
 class RegisterForm(FlaskForm):
-    user_name=StringField("User Name", validators=[InputRequired()])
+    first_name = StringField("First Name", validators=[InputRequired()])
+    surname = StringField("Surname", validators=[InputRequired()])
     email = StringField("Email Address", validators=[Email("Please enter a valid email")])
+    phone_number =StringField("Phone Number", validators=[Length(max=10)])
+    street_address =StringField("Street Addres", validators=[Length(max=200)])
     # linking two fields - password should be equal to data entered in confirm
-    password=PasswordField("Password", validators=[InputRequired(),
-                  EqualTo('confirm', message="Passwords should match")])
-    confirm = PasswordField("Confirm Password")
-
+    password = PasswordField("Password", validators=[InputRequired(), Length(min=6)])
+    confirm = PasswordField("Confirm Password", validators=[InputRequired(), EqualTo('confirm', message="Passwords should match")])
     # submit button
     submit = SubmitField("Register")
 
