@@ -19,7 +19,7 @@ class RegisterForm(FlaskForm):
     street_address =StringField("Street Addres", validators=[Length(max=200)])
     # linking two fields - password should be equal to data entered in confirm
     password = PasswordField("Password", validators=[InputRequired(), Length(min=6)])
-    confirm = PasswordField("Confirm Password", validators=[InputRequired(), EqualTo('confirm', message="Passwords should match")])
+    confirm_password = PasswordField("Confirm Password", validators=[InputRequired(), EqualTo("password", message="Passwords should match")]),
     # submit button
     submit = SubmitField("Register")
 
