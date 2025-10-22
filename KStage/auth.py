@@ -3,7 +3,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 from .models import User
 from .forms import LoginForm, RegisterForm
 from . import db
-from flask_bcrypt import generate_password_hash, check_password_hash
+# from flask_bcrypt import generate_password_hash, check_password_hash
 from werkzeug.security import generate_password_hash, check_password_hash
 
 # Create a blueprint - make sure all BPs have unique names
@@ -60,6 +60,14 @@ def register():
     
     return render_template('register.html', form=form)
 
+#Logout 
+@auth_bp.route('/logout')
+@login_required
+def logout():
+    """Logs out the current user."""
+    logout_user()
+    flash('You have been logged out.', 'info')
+    return redirect(url_for('main.index'))
 
 #Login - Not working (idk why its still here just incase)
 # def login():
