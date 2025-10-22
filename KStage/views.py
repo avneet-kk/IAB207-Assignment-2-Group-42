@@ -57,7 +57,7 @@ def event_detail(event_id: int):
     return render_template('event_detail.html', event=event, form=form)
 
 @main_bp.route('/bookings')
-#login_required
+@login_required
 def booking_history():
     """Show the logged-in user's bookings (most recent first)."""
     bookings = (Order.query
