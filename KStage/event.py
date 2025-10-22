@@ -16,7 +16,7 @@ def create():
   if form.validate_on_submit():
     print('Successfully created new event')
     return redirect(url_for('event.create'))
-  return render_template('template/create.html', form=form)
+  return render_template('destination/create.html', form=form)
 
 def get_event():
     b_desc = """"Get ready for the ultimate ARMY experience! Join us for an unforgettable BTS Fan Signing Event, where you’ll have the rare opportunity to meet your favorite members of BTS up close. This exclusive event brings fans together to celebrate love, music, and connection — the true essence of BTS. """
