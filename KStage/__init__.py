@@ -44,6 +44,9 @@ def create_app():
     from . import auth
     app.register_blueprint(auth.auth_bp)
 
+    from . import event 
+    app.register_blueprint(event.event_bp)
+
     #app.errorhandler(404)
     def not_found(e):
     # Render custom 404 page
