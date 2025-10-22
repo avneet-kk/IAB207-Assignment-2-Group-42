@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from .models import Event 
 from .forms import EventForm
+from . import db
 
 event_destbp = Blueprint('event', __name__, url_prefix='/event')
 
