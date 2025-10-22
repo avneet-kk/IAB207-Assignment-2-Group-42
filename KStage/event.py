@@ -24,14 +24,14 @@ def get_event():
    
     event = Event ('BTS fan sign', b_desc, 'Thursday, 9th October 2025', '7:00pm', 'Starting from $2000', 'Approx. 3 hours')
 
-    feature_section = feature_section("Experience all of TWICE's biggest hits including 'TT', 'Likey', 'What Is Love', and tracks from their latest albums.", "State-of-the-art lighting, LED screens, and stunning stage effects that create an immersive concert experience.", 'Special moments with ONCE, fan chants, and exclusive merchandise available only at the concert venue.')
-    feature_section = feature_section("Sam", "Visited during the olympics, was great", '2023-08-12 11:00:00')
+    #feature_section = feature_section("Experience all of TWICE's biggest hits including 'TT', 'Likey', 'What Is Love', and tracks from their latest albums.", "State-of-the-art lighting, LED screens, and stunning stage effects that create an immersive concert experience.", 'Special moments with ONCE, fan chants, and exclusive merchandise available only at the concert venue.')
+    #feature_section = feature_section("Sam", "Visited during the olympics, was great", '2023-08-12 11:00:00')
     
     
-    event.set_feature_section(feature_section)
-    feature_section = feature_section("Bill", "free food!", '2023-08-12 11:00:00')
-    event.set_feature_section(feature_section)
-    feature_section = feature_section("Sally", "free face masks!", '2023-08-12 11:00:00')
-    event.set_feature_section(feature_section)
+    #event.set_feature_section(feature_section)
+    #feature_section = feature_section("Bill", "free food!", '2023-08-12 11:00:00')
+    #event.set_feature_section(feature_section)
+    #feature_section = feature_section("Sally", "free face masks!", '2023-08-12 11:00:00')
+    #event.set_feature_section(feature_section)
     
     return event
