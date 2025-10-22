@@ -19,6 +19,7 @@ def create():
   return render_template('destination/create.html', form=form)
 
 def get_event():
+    #create description of BTS fan signing event
     b_desc = """"Get ready for the ultimate ARMY experience! Join us for an unforgettable BTS Fan Signing Event, where you’ll have the rare opportunity to meet your favorite members of BTS up close. This exclusive event brings fans together to celebrate love, music, and connection — the true essence of BTS. """
    
     event = Event ('BTS fan sign', b_desc, 'Thursday, 9th October 2025', '7:00pm', 'Starting from $2000', 'Approx. 3 hours')
