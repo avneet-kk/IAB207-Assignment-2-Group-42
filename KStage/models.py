@@ -60,5 +60,5 @@ class Order(db.Model): #Booking
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     user_id  = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
-    event = db.relationship('Event')
+    event = db.relationship('Event', lazy=True)
 
