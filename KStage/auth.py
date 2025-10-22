@@ -12,7 +12,7 @@ auth_bp = Blueprint('auth', __name__)
 # Login 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    """Logs a user in aftere validating credentials."""
+    """Logs a user in after validating credentials."""
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     
@@ -23,7 +23,9 @@ def login():
             login_user(user)
             flash('Login successful!', 'success')
             next_page = request.args.get('next')
-            return redirect(next_page or url_for('main.index'))
+            if not next_page or not next_page.startswith('/'):
+                next_page = url_for('main.index')
+            return redirect(next_page)
         else:
             flash('Invalid email or password.', 'danger')
 
