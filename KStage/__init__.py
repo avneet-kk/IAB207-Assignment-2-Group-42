@@ -3,6 +3,7 @@ from flask import Flask, render_template
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from .models import User
 
 db = SQLAlchemy()
 
@@ -47,12 +48,12 @@ def create_app():
     from . import event 
     app.register_blueprint(event.event_destbp)
 
-    #app.errorhandler(404)
+    @app.errorhandler(404)
     def not_found(e):
     # Render custom 404 page
       return render_template('404.html'), 404
 
-    #app.errorhandler(500)
+    @app.errorhandler(500)
     def server_error(e):
     # Render custom 500 page
       return render_template('500.html'), 500 
