@@ -13,6 +13,7 @@ class User(db.Model, UserMixin):
     street_address = db.Column(db.String(200))
     password_hash = db.Column(db.String(255), nullable=False)
     comments = db.relationship('Comment', backref='user')
+    #events = db.relationship('Event', backref='user') for tracking creator of each event (remember you would have to reset the database for this)
 
     def set_password(self, password):
         """Hashes password before storing"""
