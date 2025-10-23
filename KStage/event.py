@@ -5,7 +5,7 @@ from . import db
 
 event_destbp = Blueprint('event', __name__, url_prefix='/event')
 
-@event_destbp.route ('/<id>')
+@event_destbp.route ('/<id>') 
 def show (id):
     Events = get_event ()
     return render_template ('event/show.html', event = Event)
