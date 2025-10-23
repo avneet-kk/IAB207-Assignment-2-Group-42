@@ -90,23 +90,42 @@ def logout():
 
 
 
+#NOT WORKING :(
+# #Register
+# @auth_bp.route('/register', methods=['GET', 'POST'])
+# def register():
+#     """Registers a new user with hashed password."""
+#     if current_user.is_authenticated:
+#         return redirect(url_for('main.index'))
+    
+#     form = RegisterForm()
+#     if form.validate_on_submit():
+#         #See/ check if email already exists 
+#         existing_user = User.query.filter_by(email=form.email.data.lower()).first()
+#         if existing_user:
+#             flash('Email already registered. Please log in.', 'warning')
+#             return redirect(url_for('auth.login'))
+        
+#         user = User(
+#             first_name=form.first_name.data.strip(),
+#             surname=form.surname.data.strip(),
+#             email=form.email.data.lower().strip(),
+#             phone_number=form.phone_number.data.strip(),
+#             street_address=form.street_address.data.strip()
+#         )
+#         user.set_password(form.password.data)
+#         db.session.add(user)
+#         db.session.commit()
 
-
-# from flask import Blueprint, flash, render_template, request, url_for, redirect
-# from flask_login import login_user, login_required, logout_user, current_user
-# from .models import User
-# from .forms import LoginForm, RegisterForm
-# from . import db
-# # from flask_bcrypt import generate_password_hash, check_password_hash
-# from werkzeug.security import generate_password_hash, check_password_hash
-
-# # Create a blueprint - make sure all BPs have unique names
-# auth_bp = Blueprint('auth', __name__)
+#         flash('Registration successful! You can now log in.', 'success')
+#         return redirect(url_for('auth.login'))
+    
+#     return render_template('register.html', form=form)
 
 # # Login 
 # @auth_bp.route('/login', methods=['GET', 'POST'])
 # def login():
-#     """Logs a user in after validating credentials."""
+#     """Logs a user in aftere validating credentials."""
 #     if current_user.is_authenticated:
 #         return redirect(url_for('main.index'))
     
@@ -117,44 +136,13 @@ def logout():
 #             login_user(user)
 #             flash('Login successful!', 'success')
 #             next_page = request.args.get('next')
-#             if not next_page or not next_page.startswith('/'):
-#                 next_page = url_for('main.index')
-#             return redirect(next_page)
+#             return redirect(next_page or url_for('main.index'))
 #         else:
 #             flash('Invalid email or password.', 'danger')
 
-#         return render_template('login.html', form=form)
+#     return render_template('login.html', form=form)
     
-# #Register
-# @auth_bp.route('/register', methods=['GET', 'POST'])
-# def register():
-#     """Registers a new user with hashed password."""
-#     if current_user.is_authenticated:
-#         return redirect(url_for('main.index'))
-    
-    # form = RegisterForm()
-    # if form.validate_on_submit():
-    #     #See/ check if email already exists 
-    #     existing_user = User.query.filter_by(email=form.email.data.lower()).first()
-    #     if existing_user:
-    #         flash('Email already registered. Please log in.', 'warning')
-    #         return redirect(url_for('auth.login'))
-        
-    #     user = User(
-    #         first_name=form.first_name.data.strip(),
-    #         surname=form.surname.data.strip(),
-    #         email=form.email.data.lower().strip(),
-    #         phone_number=form.phone_number.data.strip(),
-    #         street_address=form.street_address.data.strip()
-    #     )
-    #     user.set_password(form.password.data)
-    #     db.session.add(user)
-#         db.session.commit()
 
-#         flash('Registration successful! You can now log in.', 'success')
-#         return redirect(url_for('auth.login'))
-    
-#     return render_template('register.html', form=form)
 
 # #Logout 
 # @auth_bp.route('/logout')
@@ -165,10 +153,10 @@ def logout():
 #     flash('You have been logged out.', 'info')
 #     return redirect(url_for('main.index'))
 
-# #Login - Not working (idk why its still here just incase)
-# # def login():
-# #     login_form = LoginForm()
-# #     error = None
+#Login - Not working (idk why its still here just incase)
+# def login():
+#     login_form = LoginForm()
+#     error = None
 #     if login_form.validate_on_submit():
 #         user_name = login_form.user_name.data
 #         password = login_form.password.data
