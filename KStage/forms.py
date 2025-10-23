@@ -15,7 +15,7 @@ class RegisterForm(FlaskForm):
     surname = StringField("Surname", validators=[InputRequired()])
     email = StringField("Email Address", validators=[Email("Please enter a valid email")])
     phone_number =StringField("Phone Number", validators=[Length(max=12)])
-    street_address =StringField("Street Addres", validators=[Length(max=200)])
+    street_address =StringField("Street Address", validators=[Length(max=200)])
     # linking two fields - password should be equal to data entered in confirm
     password = PasswordField("Password", validators=[InputRequired(), Length(min=6)])
     confirm_password = PasswordField("Confirm Password", validators=[InputRequired(), EqualTo("password", message="Passwords should match")])
