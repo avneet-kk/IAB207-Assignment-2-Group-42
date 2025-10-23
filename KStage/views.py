@@ -20,7 +20,7 @@ def events():
     events = Event.query.order_by(Event.date.asc()).all()
     return render_template('events.html', events=events)
 
-#main_bp.route('/events/<int:event_id>', methods=['GET', 'POST'])
+@main_bp.route('/events/<int:event_id>', methods=['GET', 'POST'])
 def event_detail(event_id: int):
     """Show one event and handle booking form submission."""
     event = Event.query.get_or_404(event_id)
