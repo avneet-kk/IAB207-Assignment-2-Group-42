@@ -8,7 +8,7 @@ event_destbp = Blueprint('event', __name__, url_prefix='/event')
 @event_destbp.route ('/<id>') 
 def show (id):
     Events = get_event ()
-    return render_template ('destination/show.html', event = Event)
+    return render_template ('event/show.html', event = Event)
 
 @event_destbp.route('/create', methods = ['GET', 'POST'])
 def create():
