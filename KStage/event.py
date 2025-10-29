@@ -35,4 +35,19 @@ def get_event():
     #feature_section = feature_section("Sally", "free face masks!", '2023-08-12 11:00:00')
     #event.set_feature_section(feature_section)
     
+
+
+  # class Event(db.Model):
+  #   id = db.Column(db.Integer, primary_key=True)
+  #   title = db.Column(db.String(160), nullable=False)
+  #   category = db.Column(db.String(80), nullable=False)
+  #   description = db.Column(db.Text, nullable=False)
+  #   date = db.Column(db.DateTime, nullable=False)
+  #   location = db.Column(db.String(160), nullable=False)
+  #   total_tickets = db.Column(db.Integer, default=0, nullable=False)
+  #   sold_tickets  = db.Column(db.Integer, default=0, nullable=False)
+  #   is_cancelled  = db.Boolean,
+  #   image_path    = db.Column(db.String(255))
+  #   owner_id      = db.Column(db.Integer, db.ForeignKey('user.id'))
+
     return "event"
