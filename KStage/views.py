@@ -54,7 +54,7 @@ def event_detail(event_id: int):
         return redirect(url_for('main.booking_history'))
 
     # GET or invalid POST -> render page with form + event details
-    return render_template('event_detail.html', event=event, form=form)
+    return render_template('event_details.html', event=event, form=form)
 
 @main_bp.route('/bookings')
 @login_required
