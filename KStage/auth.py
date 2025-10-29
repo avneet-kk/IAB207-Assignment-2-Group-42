@@ -12,6 +12,11 @@ auth_bp = Blueprint('auth', __name__)
 #tester
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
+    """Register a new user with hashed password."""
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+
+    
     register_form = RegisterForm()
 
     #the validation of form is fine, HTTP request is POST
@@ -45,6 +50,11 @@ def register():
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    """Log a user in after validating credentials."""
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+
+    
     form = LoginForm()
     error = None
 
