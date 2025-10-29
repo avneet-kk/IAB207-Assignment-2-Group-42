@@ -46,18 +46,18 @@ class Event(db.Model):
         if self.sold_tickets >= self.total_tickets: return "Sold Out"
         return "Open"
     
-    # passing data 
-    def __init__(self, name description, image, category, date, location, total_tickets):
-        self.name = name 
-        self.description = description 
-        self.image = image 
-        self.category = category 
-        self.date = date 
-        self.location = location 
-        self.total_tickets = total_tickets 
+    # # passing data 
+    # def __init__(self, name description, image, category, date, location, total_tickets):
+    #     self.name = name 
+    #     self.description = description 
+    #     self.image = image 
+    #     self.category = category 
+    #     self.date = date 
+    #     self.location = location 
+    #     self.total_tickets = total_tickets 
     
-    def __repr__(): 
-        return f"Name: {self.name}, Description: {self.description}, Date: {self.date}, Location: {self.location}"
+    # def __repr__(): 
+    #     return f"Name: {self.name}, Description: {self.description}, Date: {self.date}, Location: {self.location}"
 
 
 class Comment(db.Model):
