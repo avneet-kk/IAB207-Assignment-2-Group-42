@@ -16,8 +16,8 @@ def create():
   form = EventForm()
   if form.validate_on_submit():
     print('Successfully created new event')
-    return redirect(url_for('events'))
-  # return render_template('destination/create.html', form=form)
+    # return redirect(url_for('events'))
+  return render_template('destination/create.html', form=form)
 
 def get_event():
     #create description of BTS fan signing event
@@ -50,4 +50,4 @@ def get_event():
   #   image_path    = db.Column(db.String(255))
   #   owner_id      = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    return Event.query.first()
+    return Event
