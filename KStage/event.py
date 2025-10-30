@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from .models import Event 
 from .forms import EventForm
 from . import db
+from datetime import datetime
 
 event_destbp = Blueprint('event', __name__, url_prefix='/event')
 
@@ -16,10 +17,18 @@ def create():
   print('Method type: ', request.method)
   form = EventForm()
   if form.validate_on_submit():
-    event = Event(name=form.name.data,
+
+    #combine date and time
+    combined_datetime = datetime.combine(form.date.data, form.time.data)
+
+    event = Event(title=form.title.data, 
+                  category=form.category.data,
                   description=form.description.data,
-                  image=form.image.data, 
-                  )
+                  date_time=combined_datetime,
+                  location=form.location.data, 
+                  total_tickets=int(form.total_tickets.data),
+                  image_path=form.image_path.data,
+    )
     
     #add event to the database 
     db.session.add(event)
