@@ -3,21 +3,21 @@ from .models import Event
 from .forms import EventForm
 from . import db
 
-event_destbp = Blueprint('event', __name__, url_prefix='/event')
+event_bp = Blueprint('event', __name__, url_prefix='/event')
 
-@event_destbp.route ('/<id>') 
+@event_bp.route ('/<id>') 
 def show (id):
-    Events = get_event ()
+    Event = get_event ()
     return render_template ('event/show.html', event = Event)
 
-@event_destbp.route('/create', methods = ['GET', 'POST'])
+@event_bp.route('/create', methods = ['GET', 'POST'])
 def create():
   print('Method type: ', request.method)
   form = EventForm()
   if form.validate_on_submit():
     print('Successfully created new event')
-    return redirect(url_for('event.create'))
-  return render_template('destination/create.html', form=form)
+    return redirect(url_for('events'))
+  # return render_template('destination/create.html', form=form)
 
 def get_event():
     #create description of BTS fan signing event
@@ -50,4 +50,4 @@ def get_event():
   #   image_path    = db.Column(db.String(255))
   #   owner_id      = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    return "event"
+    return Event.query.first()
