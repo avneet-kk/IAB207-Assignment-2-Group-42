@@ -27,6 +27,7 @@ def create():
                   date_time=combined_datetime,
                   location=form.location.data, 
                   total_tickets=int(form.total_tickets.data),
+                  # owner_id=current_user.id,
                   image_path=form.image_path.data,
     )
     
