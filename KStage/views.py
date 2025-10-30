@@ -17,7 +17,7 @@ def index():
 @main_bp.route('/events')
 def events():
     """List all events from the database."""
-    events = Event.query.order_by(Event.date_time.asc()).all()
+    events = Event.query.order_by(Event.date.asc()).all()
     return render_template('events.html', events=events)
 
 @main_bp.route('/events/<int:event_id>', methods=['GET', 'POST'])
