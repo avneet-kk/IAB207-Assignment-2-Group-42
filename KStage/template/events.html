@@ -30,8 +30,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto"> 
-          <li class="nav-item"><a class="nav-link active" href="{{url_for('main.index')}}">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{url_for('main.events')}}">Events</a></li>
+          <li class="nav-item"><a class="nav-link " href="{{url_for('main.index')}}">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="{{url_for('main.events')}}">Events</a></li>
           <li class="nav-item"><a class="nav-link" href="{{url_for('main.create_events')}}">Create Event</a></li><!--update this!! create-event.html-->
           <li class="nav-item"><a class="nav-link" href="{{url_for('main.booking_history')}}">My Bookings</a></li>
           <li class="nav-item"><a class="nav-link" href="{{url_for('auth.login')}}">Login</a></li>
@@ -47,7 +47,8 @@
     <div class="container">
       <h1>Discover K-pop Events</h1>
       <p class="lead">Concerts, fan meetings, and more — book your tickets now!</p>
-      <a href="create-event.html" class="btn btn-light btn-lg mt-3">
+      <a href="{{url_for('main.create_events')}}" class="btn btn-light btn-lg mt-3">
+        <!-- <li class="nav-item"><a class="nav-link" href="{{url_for('main.create_events')}}">Create Event</a></li> -->
         <i class="bi bi-plus-circle me-2"></i>Create Event
       </a>
     </div>
