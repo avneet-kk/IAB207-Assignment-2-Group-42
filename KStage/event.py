@@ -7,7 +7,8 @@ event_destbp = Blueprint('event', __name__, url_prefix='/event')
 
 @event_destbp.route ('/<id>') 
 def show (id):
-    Event = get_event ()
+    Event = db.session.scalar(db.select(Event).where(Event.id==id))
+    # Event = get_event ()
     return render_template ('event/show.html', event = Event)
 
 @event_destbp.route('/create', methods = ['GET', 'POST'])
@@ -15,11 +16,20 @@ def create():
   print('Method type: ', request.method)
   form = EventForm()
   if form.validate_on_submit():
+    event = Event(name=form.name.data,
+                  description=form.description.data,
+                  image=form.image.data, 
+                  )
+    
+    #add event to the database 
+    db.session.add(event)
+    #commit on the database
+    db.session.commit()
     print('Successfully created new event')
     # return redirect(url_for('events'))
   return render_template('destination/create.html', form=form)
 
-def get_event():
+#  def get_event():
     #create description of BTS fan signing event
     #b_desc = """"Get ready for the ultimate ARMY experience! Join us for an unforgettable BTS Fan Signing Event, where you’ll have the rare opportunity to meet your favorite members of BTS up close. This exclusive event brings fans together to celebrate love, music, and connection — the true essence of BTS. """
    
@@ -50,4 +60,4 @@ def get_event():
   #   image_path    = db.Column(db.String(255))
   #   owner_id      = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    return Event
+    # return Event
