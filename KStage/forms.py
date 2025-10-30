@@ -29,7 +29,7 @@ class BookingForm(FlaskForm):
 
 # for creating events
 class EventForm(FlaskForm):
-    name = StringField('Event Title', validators=[InputRequired()])
+    title = StringField('Event Title', validators=[InputRequired()])
     # Category dropdown box
     category = SelectField(
         'Category',
@@ -44,8 +44,8 @@ class EventForm(FlaskForm):
     time = TimeField('time', validators=[InputRequired()])
     location = StringField('Venue', validators=[InputRequired()])
     price = StringField('Ticket Price', validators=[InputRequired()])
-    available = StringField('Ticket Available', validators=[InputRequired()])
-    image = StringField('Event Image', validators=[InputRequired()])
+    total_tickets = StringField('Ticket Available', validators=[InputRequired()])
+    image_path = StringField('Event Image', validators=[InputRequired()])
     description = TextAreaField('Description', validators = [InputRequired()])
 
     #submit button
