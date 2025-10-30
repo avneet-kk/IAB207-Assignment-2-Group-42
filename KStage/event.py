@@ -3,14 +3,14 @@ from .models import Event
 from .forms import EventForm
 from . import db
 
-event_bp = Blueprint('event', __name__, url_prefix='/event')
+event_destbp = Blueprint('event', __name__, url_prefix='/event')
 
-@event_bp.route ('/<id>') 
+@event_destbp.route ('/<id>') 
 def show (id):
     Event = get_event ()
     return render_template ('event/show.html', event = Event)
 
-@event_bp.route('/create', methods = ['GET', 'POST'])
+@event_destbp.route('/create', methods = ['GET', 'POST'])
 def create():
   print('Method type: ', request.method)
   form = EventForm()
