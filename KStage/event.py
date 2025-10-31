@@ -13,46 +13,46 @@ def show (id):
     # Event = get_event ()
     return render_template ('destination/show.html', event = Event)
 
-@event_destbp.route('/create', methods = ['GET', 'POST'])
-@login_required
-def create():
-  print('Method type: ', request.method)
-  form = EventForm()
-  print('passed section A')
-  if form.validate_on_submit():
+# @event_destbp.route('/create', methods = ['GET', 'POST'])
+# @login_required
+# def create():
+#   print('Method type: ', request.method)
+#   form = EventForm()
+#   print('passed section A')
+#   if form.validate_on_submit():
 
-    #combine date and time
-    combined_datetime = datetime.combine(form.date.data, form.time.data)
+#     #combine date and time
+#     combined_datetime = datetime.combine(form.date.data, form.time.data)
 
-    event = Event(title=form.title.data, 
-                  category=form.category.data,
-                  description=form.description.data,
-                  date=combined_datetime,
-                  location=form.location.data, 
-                  total_tickets=int(form.total_tickets.data),
-                  ticket_price=form.price.data,
-                  owner_id=current_user.id,
-                  image_path=form.image_path.data,
-    )
+#     event = Event(title=form.title.data, 
+#                   category=form.category.data,
+#                   description=form.description.data,
+#                   date=combined_datetime,
+#                   location=form.location.data, 
+#                   total_tickets=int(form.total_tickets.data),
+#                   ticket_price=form.price.data,
+#                   owner_id=current_user.id,
+#                   image_path=form.image_path.data,
+#     )
     
-    #add event to the database 
-    db.session.add(event)
-    #commit on the database
-    db.session.commit()
-    # print('Successfully created new event')
+#     #add event to the database 
+#     db.session.add(event)
+#     #commit on the database
+#     db.session.commit()
+#     # print('Successfully created new event')
 
-    flash(f'Event "{event.title}" created successfully!', 'success')   
+#     flash(f'Event "{event.title}" created successfully!', 'success')   
 
-    return redirect(url_for('event.show', id=event.id))
+#     return redirect(url_for('event.show', id=event.id))
   
-  elif request.method == 'POST':
-        print('Form Validation Failed. Errors:')
-        print(form.errors)
-        for field, errors in form.errors.items():
-            for error in errors:
-                flash(f'{field}: {error}', 'danger')
+#   elif request.method == 'POST':
+#         print('Form Validation Failed. Errors:')
+#         print(form.errors)
+#         for field, errors in form.errors.items():
+#             for error in errors:
+#                 flash(f'{field}: {error}', 'danger')
 
-  return render_template('destination/create.html', form=form)
+#   return render_template('destination/create.html', form=form)
 
 
 
