@@ -14,6 +14,7 @@ auth_bp = Blueprint('auth', __name__)
 def register():
     """Register a new user with hashed password."""
     if current_user.is_authenticated:
+        flash('You are already logged in.', 'info')
         return redirect(url_for('main.index'))
 
     
@@ -25,7 +26,7 @@ def register():
             #check if a user exists
             user = db.session.scalar(db.select(User).where(User.email == email))
             if user:#this returns true when user is not None
-                flash('Email already exists, please try another')
+                flash('Invalid email or password.', 'danger')
                 return redirect(url_for('auth.register'))
             #create a new User model object
             new_user = User(
@@ -78,18 +79,14 @@ def login():
         else: 
             login_user(user)
             flash(f'Welcome back, {user.first_name}!', 'success')
+            next_page = request.args.get('next')
             return redirect(url_for('main.index'))
         
-        # if error is None:
-        #     login_user(user)
-        #     return redirect(url_for('main.index'))
-        # else:
-        #     flash(error)
-
     return render_template('login.html', form=form, heading='Login')
 
 @auth_bp.route('/logout')
 @login_required
 def logout():
     logout_user()
+    flash('You have been logged out', 'info')
     return redirect(url_for('main.index'))
