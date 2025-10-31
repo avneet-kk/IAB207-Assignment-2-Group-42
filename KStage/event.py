@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .models import Event 
 from .forms import EventForm
+from flask_login import login_required, current_user
 from . import db
 from datetime import datetime
 
@@ -12,8 +13,9 @@ def show (id):
     # Event = get_event ()
     return render_template ('event/show.html', event = Event)
 
-@event_destbp.route('/create_events', methods = ['GET', 'POST'])
-def create_events():
+@event_destbp.route('/create', methods = ['GET', 'POST'])
+@login_required
+def create():
   print('Method type: ', request.method)
   form = EventForm()
   if form.validate_on_submit():
@@ -27,7 +29,7 @@ def create_events():
                   date=combined_datetime,
                   location=form.location.data, 
                   total_tickets=int(form.total_tickets.data),
-                  # owner_id=current_user.id,
+                  owner_id=current_user.id,
                   image_path=form.image_path.data,
     )
     
@@ -37,10 +39,18 @@ def create_events():
     db.session.commit()
     # print('Successfully created new event')
 
-    # flash(f'Event "{event.title}" created successfully!', 'success')   
+    flash(f'Event "{event.title}" created successfully!', 'success')   
+
+    return redirect(url_for('event.show', id=event.id))
+  
+  return render_template('destination/create.html', form=form)
+
+
+
+
 
     # return redirect(url_for('events'))
-  return render_template('destination/create.html', form=form)
+  
   # Redirect to the event's detail page after successful creation
   # return redirect(url_for('main.event_detail', event_id=new_event.id))
 
