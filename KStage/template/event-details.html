@@ -153,16 +153,16 @@
           <li class="nav-item"><a class="nav-link" href="{{url_for('main.events')}}">Events</a></li>
           <li class="nav-item"><a class="nav-link" href="{{url_for('main.create_events')}}">Create Event</a></li><!--update this!! create-event.html-->
           <li class="nav-item"><a class="nav-link" href="{{url_for('main.booking_history')}}">My Bookings</a></li>
-         {% if current_user.is_authenticated %}
+          {% if current_user.is_authenticated %}
             <!-- Drop down menu for logged in users-->
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
                 <i class="bi bi-person-circle me-1"></i>
                 Hi, {{ current_user.first_name }}    
               </a>
-              <ul> class="dropdown-menu dropdown-menu-end" arial-labelledby="navbarDropdown">
+              <ul class="dropdown-menu dropdown-menu-end" arial-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" href="{{ url_for('main.create_event') }}">Create Event</a></li>
-                <li><a class="dropdown-item" href="{{ url_for('main.booking_histroy') }}">My Bookings</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('main.booking_history') }}">My Bookings</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item text-danger" href="{{ url_for('auth.logout') }}">Logout</a></li>
               </ul>
