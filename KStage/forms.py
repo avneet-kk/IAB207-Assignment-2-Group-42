@@ -37,7 +37,7 @@ class EventForm(FlaskForm):
     category = SelectField(
         'Category',
         choices=[
-            ('consert'),
+            ('Concert'),
             ('Fan Meeting'),
             ('Dance Competition'),
             ('Multi-Group '),
