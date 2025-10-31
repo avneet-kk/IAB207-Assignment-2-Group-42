@@ -18,6 +18,7 @@ def show (id):
 def create():
   print('Method type: ', request.method)
   form = EventForm()
+  print('passed section A')
   if form.validate_on_submit():
 
     #combine date and time
