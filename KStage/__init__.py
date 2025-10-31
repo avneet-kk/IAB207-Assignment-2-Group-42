@@ -22,6 +22,10 @@ def create_app():
     # initialise db with flask app
     db.init_app(app)
 
+  # config upload folder
+    UPLOAD_FOLDER = '/static/image'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
     Bootstrap5(app)
     
     # initialise the login manager
