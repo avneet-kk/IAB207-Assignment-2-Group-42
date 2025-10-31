@@ -14,8 +14,8 @@ auth_bp = Blueprint('auth', __name__)
 def register():
     """Register a new user with hashed password."""
     if current_user.is_authenticated:
-        flash('You are already logged in.', 'info')
-        return redirect(url_for('main.index'))
+        flash('You are account has been registered, please log in.', 'info')
+        return redirect(url_for('auth.login'))
 
     
     register_form = RegisterForm()
@@ -53,6 +53,7 @@ def register():
 def login():
     """Log a user in after validating credentials."""
     if current_user.is_authenticated:
+        flash('You are already logged in.', 'info')
         return redirect(url_for('main.index'))
 
     
