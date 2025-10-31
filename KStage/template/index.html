@@ -62,9 +62,6 @@
       <span class="text-muted">
         Signed in as <strong class="text-dark">{{ current_user.first_name }}</strong>
       </span>
-      <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('main.booking_history') }}">
-        My Bookings
-      </a>
       <a class="btn btn-sm btn-outline-danger" href="{{ url_for('auth.logout') }}">
         Logout
       </a>
