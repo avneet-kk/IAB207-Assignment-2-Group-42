@@ -35,9 +35,14 @@ def create_events():
     db.session.add(event)
     #commit on the database
     db.session.commit()
-    print('Successfully created new event')
+    # print('Successfully created new event')
+
+    flash(f'Event "{event.title}" created successfully!', 'success')   
+
     # return redirect(url_for('events'))
   return render_template('destination/create.html', form=form)
+  # Redirect to the event's detail page after successful creation
+  # return redirect(url_for('main.event_detail', event_id=new_event.id))
 
 #  def get_event():
     #create description of BTS fan signing event
