@@ -1,12 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container mt-4">
+    <div class="container">
+         <!-- mt-4"> -->
         <h2>User Login</h2>
         <form method="POST">
+        <div class="row mt-5">
+      <div class="col-md-12">
             {{ form.hidden_tag() }}
             {{ form.email.label }} {{ form.email(class="form-control") }}
             {{ form.password.label }} {{ form.password(class="form-control") }}
             {{ form.submit(class="btn btn-primary mt-3") }}
+       </div>
+    </div>
         </form>
     </div>
 {% endblock %}
