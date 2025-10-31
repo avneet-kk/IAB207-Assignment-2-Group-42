@@ -32,16 +32,17 @@ class BookingForm(FlaskForm):
 
 # for creating events
 class EventForm(FlaskForm):
-    title = StringField('Event Title', validators=[InputRequired()])
+    title = StringField('Event Title', validators=[InputRequired(), Length(max=200)])
     # Category dropdown box
     category = SelectField(
         'Category',
         choices=[
-            ('Concert'),
-            ('Fan Meeting'),
-            ('Dance Competition'),
-            ('Multi-Group '),
+            ('concert', 'Concert'),
+            ('fanmeeting', 'Fan Meeting'),
+            ('dance', 'Dance Competition'),
+            ('mulitgroup', 'Multi-Group '),
         ],
+        validators=[InputRequired()]
     )
     date = DateField('date', validators=[InputRequired()])
     time = TimeField('time', validators=[InputRequired()])
