@@ -81,7 +81,7 @@ def create_events():
         flash("Event created succesfully!", "success")
         return redirect(url_for('main.events'))
     
-    return render_template('create_event.html', form=form)
+    return render_template('create-event.html', form=form)
 
 @main_bp.route('/bookings')
 @login_required
