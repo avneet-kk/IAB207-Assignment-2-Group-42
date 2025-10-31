@@ -8,16 +8,16 @@
         <div class="col-lg-4 col-md-6" data-category="concert">
           <div class="card event-card shadow-sm h-100">
             <span class="status-badge status-new">New</span>
-            <img src="C:\Users\User\Downloads\KSTAGE\static\images\twice.jpeg" class="card-img-top" alt="TWICE Sydney">
+            <img src="{{event.image_path}}" class="card-img-top" alt="TWICE Sydney">
             <div class="card-body">
-              <h5 class="card-title fw-bold">TWICE "This Is For" Tour – Sydney</h5>
+              <h5 class="card-title fw-bold">{{event.title}}</h5>
               <p class="text-muted">
-                <i class="bi bi-geo-alt me-1"></i>Qudos Bank Arena, Sydney<br>
-                <i class="bi bi-calendar me-1"></i>1 Nov 2025, 7:00 PM
+                <i class="bi bi-geo-alt me-1"></i>{{event.location}}<br>
+                <i class="bi bi-calendar me-1"></i>{{event.date}}
               </p>
               <div class="d-flex justify-content-between align-items-end">
-                <span class="h5 text-primary">$249</span>
-                <small class="ticket-status available">1,500 tickets left</small>
+                <span class="h5 text-primary">{{event.ticket_price}}</span>
+                <small class="ticket-status available">{{event.total_tickets}}</small>
               </div>
             </div>
             <div class="card-footer">
@@ -27,3 +27,4 @@
         </div>
 
 {% endblock %}
+
