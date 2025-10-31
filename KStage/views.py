@@ -2,8 +2,9 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, logout_user, login_required, current_user, LoginManager
 from . import db
 from .models import Event, Order
-from .forms import RegisterForm, LoginForm, BookingForm
+from .forms import RegisterForm, LoginForm, BookingForm, EventForm
 import secrets
+from datetime import datetime
 
 main_bp = Blueprint('main', __name__)
 
