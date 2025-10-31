@@ -21,7 +21,7 @@ def register():
 
     #the validation of form is fine, HTTP request is POST
     if (register_form.validate_on_submit()==True):
-            email = register_form.email.data
+            email = register_form.email.data.strip().lower()
             #check if a user exists
             user = db.session.scalar(db.select(User).where(User.email == email))
             if user:#this returns true when user is not None
