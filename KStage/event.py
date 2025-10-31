@@ -12,8 +12,8 @@ def show (id):
     # Event = get_event ()
     return render_template ('event/show.html', event = Event)
 
-@event_destbp.route('/create', methods = ['GET', 'POST'])
-def create():
+@event_destbp.route('/create_events', methods = ['GET', 'POST'])
+def create_events():
   print('Method type: ', request.method)
   form = EventForm()
   if form.validate_on_submit():
