@@ -24,7 +24,7 @@ def create_events():
     event = Event(title=form.title.data, 
                   category=form.category.data,
                   description=form.description.data,
-                  date_time=combined_datetime,
+                  date=combined_datetime,
                   location=form.location.data, 
                   total_tickets=int(form.total_tickets.data),
                   # owner_id=current_user.id,
