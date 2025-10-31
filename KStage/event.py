@@ -23,13 +23,11 @@ def create():
   print('passed section A')
   if form.validate_on_submit():
 
-    #combine date and time
-    combined_datetime = datetime.combine(form.date.data, form.time.data)
-
     event = Event(title=form.title.data, 
                   category=form.category.data,
                   description=form.description.data,
-                  date=combined_datetime,
+                  date=form.date.data,
+                  time=form.time.data,
                   location=form.location.data, 
                   total_tickets=int(form.total_tickets.data),
                   ticket_price=form.price.data,
