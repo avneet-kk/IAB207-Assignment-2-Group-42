@@ -8,7 +8,8 @@
         <h2 class="fw-bold mb-4">Add Event</h2>
         <p>Enter an event where your fan group will support their favorite K-pop artists.</p>
         
-        {{ render_form(form, action=url_for('event.create')) }}
+        <!-- {{ render_form(form, action=url_for('event.create')) }} -->
+          {{render_form(form)}}
         
       </div>
     </div>
