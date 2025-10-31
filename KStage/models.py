@@ -37,7 +37,7 @@ class Event(db.Model):
     sold_tickets  = db.Column(db.Integer, default=0, nullable=False)
     ticket_price = db.Column(db.Integer,nullable=False)
     # is_cancelled  = db.Column(db.Boolean, default=False)
-    is_cancelled  = db.Boolean
+    is_cancelled  = db.Column(db.Boolean, default=False)
     image_path    = db.Column(db.String(255))
     owner_id      = db.Column(db.Integer, db.ForeignKey('user.id'))
 
