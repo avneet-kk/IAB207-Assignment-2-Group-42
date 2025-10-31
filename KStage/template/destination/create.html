@@ -6,11 +6,13 @@
 
   <div class="container">
     <div class="row mt-5">
+      <form method="POST">
       <div class="col-md-12">
         <h1>Add Events</h1>
         <p>Enter an event where your fan group will support their favorite K-pop artists.</p>
         {{render_form(form, action=url_for('event.create'))}}
       </div>
+      </form>
     </div>
   </div>
 
