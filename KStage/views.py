@@ -59,10 +59,29 @@ def event_detail(event_id: int):
 
 @main_bp.route('/create_events', methods=['GET', 'POST'])
 def create_events():
-    """List all events from the database."""
-    # create_event = Event.query.order_by(Event.date.asc()).all()
-    # return render_template('create.html', create=create)
-    return render_template('create-event.html')#, create_events=create_events)
+    """Create a new event and save it to the database."""
+    form = EventForm()
+
+    if form.validate_on_submit():
+        new_event = Event(
+            title=form.title.data.strip(),
+            category=form.category.data,
+            description=form.description.data.strip(),
+            date=form.date.data,
+            location=form.location.data.strip(),
+            total_tickets=form.total_tickets.data,
+            image_path=form.image_path.data or None,
+            owner_id=current_user.id,
+            sold_tickets=0,
+            is_cancelled=False,
+        )
+        db.session.add(new_event)
+        db.session.commit()
+
+        flash("Event created succesfully!", "success")
+        return redirect(url_for('main.events'))
+    
+    return render_template('create_event.html', form=form)
 
 @main_bp.route('/bookings')
 @login_required
