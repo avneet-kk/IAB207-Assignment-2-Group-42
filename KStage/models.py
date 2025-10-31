@@ -34,8 +34,9 @@ class Event(db.Model):
     date = db.Column(db.DateTime, nullable=False)
     location = db.Column(db.String(160), nullable=False)
     total_tickets = db.Column(db.Integer, default=0, nullable=False)
-    # sold_tickets  = db.Column(db.Integer, default=0, nullable=False)
-    is_cancelled  = db.Column(db.Boolean, default=False)
+    sold_tickets  = db.Column(db.Integer, default=0, nullable=False)
+    # is_cancelled  = db.Column(db.Boolean, default=False)
+    is_cancelled  = db.Boolean
     image_path    = db.Column(db.String(255))
     owner_id      = db.Column(db.Integer, db.ForeignKey('user.id'))
 
