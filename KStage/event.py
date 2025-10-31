@@ -63,7 +63,18 @@ def create():
   # Redirect to the event's detail page after successful creation
   # return redirect(url_for('main.event_detail', event_id=new_event.id))
 
-#  def get_event():
+def get_event():
+    title = """BTS 6th World Tour"""
+    category = """Concert"""
+    description="""It's that time of year ARMY's... BTS is back with another World Tour!"""
+    date='30th October, 2025 | 7:00pm'
+    location="""Suncorp Stadium"""
+    total_tickets='8000'
+    ticket_price='1500'
+    image_path='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFyC8pBJI2AAHLpAVih41_yWx2xxLleTtdshAdk1HOZQd9ZM8-Ag'
+    
+    
+    
     #create description of BTS fan signing event
     #b_desc = """"Get ready for the ultimate ARMY experience! Join us for an unforgettable BTS Fan Signing Event, where you’ll have the rare opportunity to meet your favorite members of BTS up close. This exclusive event brings fans together to celebrate love, music, and connection — the true essence of BTS. """
    
