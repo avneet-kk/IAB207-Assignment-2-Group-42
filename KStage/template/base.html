@@ -10,23 +10,6 @@
   <link href="{{url_for('static', filename='style/main.css')}}" rel="stylesheet">
   <link href="{{ url_for('static', filename='style/style.css') }}" rel="stylesheet">
 </head>
-{% if current_user.is_authenticated %}
-  <div class="bg-light border-bottom py-2">
-    <div class="container d-flex justify-content-between align-items-center small">
-      <div>
-        Signed in as <strong>{{ current_user.first_name }}</strong>
-      </div>
-      <div class="d-flex gap-2">
-        <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('main.booking_history') }}">
-          My Bookings
-        </a>
-        <a class="btn btn-sm btn-danger" href="{{ url_for('auth.logout') }}">
-          Logout
-        </a>
-      </div>
-    </div>
-  </div>
-{% endif %}
 
 <body>
   {% block header %}
