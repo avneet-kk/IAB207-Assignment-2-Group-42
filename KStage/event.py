@@ -44,6 +44,10 @@ def create():
 
     return redirect(url_for('event.show', id=event.id))
   
+  elif request.method == 'POST':
+      print('Form Validation Failed. Errors:')
+      print(form.errors)
+
   return render_template('destination/create.html', form=form)
 
 

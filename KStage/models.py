@@ -35,6 +35,7 @@ class Event(db.Model):
     location = db.Column(db.String(160), nullable=False)
     total_tickets = db.Column(db.Integer, default=0, nullable=False)
     sold_tickets  = db.Column(db.Integer, default=0, nullable=False)
+    ticket_price = db.Column(db.Integer,nullable=False)
     # is_cancelled  = db.Column(db.Boolean, default=False)
     is_cancelled  = db.Boolean
     image_path    = db.Column(db.String(255))
