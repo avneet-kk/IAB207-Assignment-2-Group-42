@@ -11,7 +11,7 @@ event_destbp = Blueprint('event', __name__, url_prefix='/event')
 def show (id):
     Event = db.session.scalar(db.select(Event).where(Event.id==id))
     # Event = get_event ()
-    return render_template ('event/show.html', event = Event)
+    return render_template ('destination/show.html', event = Event)
 
 @event_destbp.route('/create', methods = ['GET', 'POST'])
 @login_required
@@ -46,8 +46,11 @@ def create():
     return redirect(url_for('event.show', id=event.id))
   
   elif request.method == 'POST':
-      print('Form Validation Failed. Errors:')
-      print(form.errors)
+        print('Form Validation Failed. Errors:')
+        print(form.errors)
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f'{field}: {error}', 'danger')
 
   return render_template('destination/create.html', form=form)
 
