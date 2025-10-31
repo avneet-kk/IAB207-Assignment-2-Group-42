@@ -57,8 +57,8 @@ def event_detail(event_id: int):
     # GET or invalid POST -> render page with form + event details
     return render_template('event-details.html', event=event, form=form)
 
-@main_bp.route('/create_events', methods=['GET', 'POST'])
-def create_events():
+@main_bp.route('/create_event', methods=['GET', 'POST'])
+def create_event():
     """Create a new event and save it to the database."""
     form = EventForm()
 
