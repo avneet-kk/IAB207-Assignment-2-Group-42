@@ -57,11 +57,11 @@ def event_detail(event_id: int):
     return render_template('event_details.html', event=event, form=form)
 
 @main_bp.route('/create_events')
-def create_events():
-    """List all events from the database."""
-    # create_event = Event.query.order_by(Event.date.asc()).all()
-    return render_template('create-event.html')#, create_events=create_events)
-
+# def create_events():
+#     """List all events from the database."""
+#     # create_event = Event.query.order_by(Event.date.asc()).all()
+#     return render_template('create.html', create=create)
+#     # return render_template('create-event.html')#, create_events=create_events)
 @main_bp.route('/bookings')
 @login_required
 def booking_history():
