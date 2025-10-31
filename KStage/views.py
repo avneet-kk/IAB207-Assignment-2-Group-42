@@ -54,7 +54,7 @@ def event_detail(event_id: int):
         return redirect(url_for('main.booking_history'))
 
     # GET or invalid POST -> render page with form + event details
-    return render_template('event_details.html', event=event, form=form)
+    return render_template('event-details.html', event=event, form=form)
 
 @main_bp.route('/create_events')
 def create_events():
@@ -71,4 +71,4 @@ def booking_history():
                 .filter_by(user_id=current_user.id)
                 .order_by(Order.created_at.desc())
                 .all())
-    return render_template('booking_history.html', bookings=bookings)
+    return render_template('booking-history.html', bookings=bookings)
