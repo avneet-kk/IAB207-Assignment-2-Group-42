@@ -285,7 +285,7 @@
     </div>
   </section>
 
-  <!-- Enhanced Footer -->
+ <!-- Enhanced Footer -->
   <footer>
     <div class="container">
       <div class="footer-content">
@@ -302,10 +302,10 @@
         <div class="footer-section">
           <h5>Quick Links</h5>
           <ul class="footer-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="events.html">All Events</a></li>
-            <li><a href="create-event.html">Create Event</a></li>
-            <li><a href="booking-history.html">My Bookings</a></li>
+            <li><a href="{{url_for('main.index')}}">Home</a></li>
+            <li><a href="{{url_for('main.events')}}">All Events</a></li>
+            <li><a href="{{url_for('main.create_events')}}">Create Event</a></li>
+            <li><a href="{{url_for('main.booking_history')}}">My Bookings</a></li>
           </ul>
         </div>
         <div class="footer-section">
