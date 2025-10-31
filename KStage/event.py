@@ -13,50 +13,50 @@ def show (id):
     # Event = get_event ()
     return render_template ('destination/show.html', event = Event)
 
-# @event_destbp.route('/create', methods = ['GET', 'POST'])
-# @login_required
-# def create():
-#   print('Method type: ', request.method)
-#   form = EventForm()
-#   print('passed section A')
-#   if form.validate_on_submit():
+@event_destbp.route('/create', methods = ['GET', 'POST'])
+@login_required
+def create():
+  print('Method type: ', request.method)
+  form = EventForm()
+  print('passed section A')
+  if form.validate_on_submit():
 
-#     #combine date and time
-#     combined_datetime = datetime.combine(form.date.data, form.time.data)
+    #combine date and time
+    combined_datetime = datetime.combine(form.date.data, form.time.data)
 
-#     event = Event(title=form.title.data, 
-#                   category=form.category.data,
-#                   description=form.description.data,
-#                   date=combined_datetime,
-#                   location=form.location.data, 
-#                   total_tickets=int(form.total_tickets.data),
-#                   ticket_price=form.price.data,
-#                   owner_id=current_user.id,
-#                   image_path=form.image_path.data,
-#     )
+    event = Event(title=form.title.data, 
+                  category=form.category.data,
+                  description=form.description.data,
+                  date=combined_datetime,
+                  location=form.location.data, 
+                  total_tickets=int(form.total_tickets.data),
+                  ticket_price=form.price.data,
+                  owner_id=current_user.id,
+                  image_path=form.image_path.data,
+    )
     
-#     #add event to the database 
-#     db.session.add(event)
-#     #commit on the database
-#     db.session.commit()
-#     # print('Successfully created new event')
+    #add event to the database 
+    db.session.add(event)
+    #commit on the database
+    db.session.commit()
+    # print('Successfully created new event')
 
-#     flash(f'Event "{event.title}" created successfully!', 'success')   
+    flash(f'Event "{event.title}" created successfully!', 'success')   
 
-#     return redirect(url_for('event.show', id=event.id))
+    return redirect(url_for('event.show', id=event.id))
   
-#   elif request.method == 'POST':
-#         print('Form Validation Failed. Errors:')
-#         print(form.errors)
-#         for field, errors in form.errors.items():
-#             for error in errors:
-#                 flash(f'{field}: {error}', 'danger')
+  elif request.method == 'POST':
+        print('Form Validation Failed. Errors:')
+        print(form.errors)
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f'{field}: {error}', 'danger')
 
-#   return render_template('destination/create.html', form=form)
-
-
+  return render_template('destination/create.html', form=form)
 
 
+
+  
 
     # return redirect(url_for('events'))
   
@@ -72,25 +72,7 @@ def get_event():
     total_tickets='8000'
     ticket_price='1500'
     image_path='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFyC8pBJI2AAHLpAVih41_yWx2xxLleTtdshAdk1HOZQd9ZM8-Ag'
-    
-    
-    
-    #create description of BTS fan signing event
-    #b_desc = """"Get ready for the ultimate ARMY experience! Join us for an unforgettable BTS Fan Signing Event, where you’ll have the rare opportunity to meet your favorite members of BTS up close. This exclusive event brings fans together to celebrate love, music, and connection — the true essence of BTS. """
-   
-    #event = Event ('BTS fan sign', b_desc, 'Thursday, 9th October 2025', '7:00pm', 'Starting from $2000', 'Approx. 3 hours')
-
-    #feature_section = feature_section("Experience all of TWICE's biggest hits including 'TT', 'Likey', 'What Is Love', and tracks from their latest albums.", "State-of-the-art lighting, LED screens, and stunning stage effects that create an immersive concert experience.", 'Special moments with ONCE, fan chants, and exclusive merchandise available only at the concert venue.')
-    #feature_section = feature_section("Sam", "Visited during the olympics, was great", '2023-08-12 11:00:00')
-    
-    
-    #event.set_feature_section(feature_section)
-    #feature_section = feature_section("Bill", "free food!", '2023-08-12 11:00:00')
-    #event.set_feature_section(feature_section)
-    #feature_section = feature_section("Sally", "free face masks!", '2023-08-12 11:00:00')
-    #event.set_feature_section(feature_section)
-    
-
+    return Event
 
   # class Event(db.Model):
   #   id = db.Column(db.Integer, primary_key=True)
@@ -105,4 +87,4 @@ def get_event():
   #   image_path    = db.Column(db.String(255))
   #   owner_id      = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    # return Event
+
