@@ -12,7 +12,7 @@ class User(db.Model, UserMixin):
     phone_number = db.Column(db.String(20))
     street_address = db.Column(db.String(200))
     password_hash = db.Column(db.String(255), nullable=False)
-    comments = db.relationship('Comment', backref='user')
+    comments = db.relationship('Comment', backref='user', cascade='all, delete-orphan', lazy='dynamic')
     #events = db.relationship('Event', backref='user') for tracking creator of each event (remember you would have to reset the database for this)
 
     def set_password(self, password):
@@ -41,6 +41,8 @@ class Event(db.Model):
     is_cancelled  = db.Column(db.Boolean, default=False)
     image_path    = db.Column(db.String(255))
     owner_id      = db.Column(db.Integer, db.ForeignKey('user.id'))
+    comments = db.relationship('Comment', backref='event', cascade='all, delete-orphan', lazy='dynamic')
+    
 
     # property
     def status(self):
@@ -69,7 +71,7 @@ class Comment(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
     user_id  = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     event_id = db.Column(db.Integer, db.ForeignKey('event.id'), nullable=False)
-    event = db.relationship('Event') 
+    #event = db.relationship('Event') 
 
 class Order(db.Model): #Booking
     id = db.Column(db.Integer, primary_key=True)
