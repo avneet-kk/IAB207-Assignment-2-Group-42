@@ -36,8 +36,8 @@ def event_detail(event_id: int):
             return redirect(url_for('auth.login', next=request.path))
 
         # Validate business rules: status must be Open
-        if event.status != "Open":
-            flash(f'Booking not allowed: {event.status}', 'warning')
+        if event.status() != "Open":
+            flash(f'Booking not allowed: {event.status()}', 'warning')
             return redirect(request.path)
 
         qty = form.qty.data
