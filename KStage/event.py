@@ -16,6 +16,7 @@ def show (id):
 
     # Event = get_event ()
     return render_template ('destination/show.html', event = Event)
+print('complete showed')
 
 @event_destbp.route('/create', methods = ['GET', 'POST'])
 @login_required
