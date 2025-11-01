@@ -9,15 +9,6 @@ from werkzeug.utils import secure_filename
 
 event_destbp = Blueprint('event', __name__, url_prefix='/event')
 print('blueprint completed')
-@event_destbp.route ('/<id>') 
-def show (id):
-    print('passed show function')
-    Event = db.session.scalar(db.select(Event).where(Event.id==id))
-    print('connection sucessful')
-
-    # Event = get_event ()
-    return render_template ('destination/show.html', event = Event)
-print('complete showed')
 
 @event_destbp.route('/create', methods = ['GET', 'POST'])
 # @login_required
@@ -59,6 +50,18 @@ def create():
   print('created event inside')
   return render_template('destination/create.html', form=form)
 print('created event outside')
+
+@event_destbp.route ('/<id>') 
+def show (id):
+    print('passed show function')
+    Event = db.session.scalar(db.select(Event).where(Event.id==id))
+    print('connection sucessful')
+
+    # Event = get_event ()
+    return render_template ('destination/show.html', event = Event)
+print('complete showed')
+
+
 
 
 def check_upload_file(form):
