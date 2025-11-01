@@ -1,7 +1,7 @@
 from flask import Blueprint, flash, render_template, request, url_for, redirect
 from .forms import LoginForm, RegisterForm
 from flask_login import login_user, login_required, logout_user, current_user
-#from flask_bcrypt import generate_password_hash, check_password_hash
+from flask_bcrypt import generate_password_hash, check_password_hash
 from .models import User
 from . import db 
 
