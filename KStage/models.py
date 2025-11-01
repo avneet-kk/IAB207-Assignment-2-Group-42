@@ -45,7 +45,7 @@ class Event(db.Model):
     # property
     def status(self):
         if self.is_cancelled: return "Cancelled"
-        if self.date < datetime.now(): return "Inactive"
+        if self.date < datetime.now().date(): return "Inactive"
         if self.sold_tickets >= self.total_tickets: return "Sold Out"
         return "Open"
     
