@@ -12,7 +12,7 @@ print('blueprint completed')
 
 @event_destbp.route('/create', methods = ['GET', 'POST'])
 # @login_required
-def create():
+def createbp():
   print('function working inside')
   print('Method type: ', request.method)
   form = EventForm()
@@ -49,6 +49,8 @@ def create():
                 flash(f'{field}: {error}', 'danger')
   print('created event inside')
   return render_template('destination/create.html', form=form)
+createbp()
+
 print('created event outside')
 
 @event_destbp.route ('/<id>') 
