@@ -54,9 +54,9 @@ def create():
         for field, errors in form.errors.items():
             for error in errors:
                 flash(f'{field}: {error}', 'danger')
-
+  print('created event inside')
   return render_template('destination/create.html', form=form)
-print('created event')
+print('created event outside')
 
 
 def check_upload_file(form):
