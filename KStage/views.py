@@ -5,6 +5,8 @@ from .models import Event, Order
 from .forms import RegisterForm, LoginForm, BookingForm, EventForm
 import secrets
 from datetime import datetime
+import os
+from werkzeug.utils import secure_filename
 
 main_bp = Blueprint('main', __name__)
 
@@ -58,19 +60,41 @@ def event_detail(event_id: int):
     return render_template('event-details.html', event=event, form=form)
 
 @main_bp.route('/create_event', methods=['GET', 'POST'])
+@login_required
 def create_event():
     """Create a new event and save it to the database."""
     form = EventForm()
 
     if form.validate_on_submit():
+        # Handle file upload
+        image_file = form.image_path.data
+        if image_file:
+            # Get the filename and secure it
+            filename = secure_filename(image_file.filename)
+            # Get the base path (parent directory of KStage)
+            BASE_PATH = os.path.dirname(os.path.dirname(__file__))
+            # Create the upload directory if it doesn't exist
+            upload_dir = os.path.join(BASE_PATH, 'KStage', 'static', 'img')
+            os.makedirs(upload_dir, exist_ok=True)
+            # Full path to save the file
+            upload_path = os.path.join(upload_dir, filename)
+            # Save the file
+            image_file.save(upload_path)
+            # Store relative path for database (relative to static folder)
+            db_image_path = f'img/{filename}'
+        else:
+            db_image_path = None
+        
         new_event = Event(
             title=form.title.data.strip(),
             category=form.category.data,
             description=form.description.data.strip(),
             date=form.date.data,
+            time=form.time.data,
             location=form.location.data.strip(),
             total_tickets=form.total_tickets.data,
-            image_path=form.image_path.data or None,
+            ticket_price=form.price.data,
+            image_path=db_image_path,
             owner_id=current_user.id,
             sold_tickets=0,
             is_cancelled=False,
@@ -78,8 +102,14 @@ def create_event():
         db.session.add(new_event)
         db.session.commit()
 
-        flash("Event created succesfully!", "success")
+        flash("Event created successfully!", "success")
         return redirect(url_for('main.events'))
+    
+    # Display form errors if validation failed
+    if request.method == 'POST':
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f'{field}: {error}', 'danger')
     
     return render_template('create-event.html', form=form)
 
