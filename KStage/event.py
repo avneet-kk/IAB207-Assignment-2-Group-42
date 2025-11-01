@@ -49,7 +49,7 @@ def createbp():
                 flash(f'{field}: {error}', 'danger')
   print('created event inside')
   return render_template('destination/create.html', form=form)
-createbp()
+
 
 print('created event outside')
 
