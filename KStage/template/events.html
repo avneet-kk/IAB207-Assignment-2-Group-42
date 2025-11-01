@@ -8,21 +8,15 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <link href="{{ url_for('static', filename='style/style.css') }}" rel="stylesheet">
   <style>
-    /* Blue theme */
-    body {
-      background-color: #f9fbff;
-      color: #333;
-    }
-
-    
+    body { background-color: #f9fbff; color: #333; }
   </style>
 </head>
 <body>
 
- <!-- Enhanced Navbar -->
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="{{url_for('main.index')}}">
+      <a class="navbar-brand" href="{{ url_for('main.index') }}">
         <i class="bi bi-music-note-beamed me-2"></i>K-Stage
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -30,10 +24,10 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto"> 
-          <li class="nav-item"><a class="nav-link " href="{{url_for('main.index')}}">Home</a></li>
-          <li class="nav-item"><a class="nav-link active" href="{{url_for('main.events')}}">Events</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{url_for('main.create_event')}}">Create Event</a></li><!--update this!! create-event.html-->
-          <li class="nav-item"><a class="nav-link" href="{{url_for('main.booking_history')}}">My Bookings</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('main.index') }}">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="{{ url_for('main.events') }}">Events</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('main.create_event') }}">Create Event</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('main.booking_history') }}">My Bookings</a></li>
           {% if current_user.is_authenticated %}
             <li class="nav-item ms-2">
               <a class="btn btn-danger" href="{{ url_for('auth.logout') }}">Logout</a>
@@ -47,19 +41,18 @@
     </div>
   </nav>
 
-
-  <!-- Hero Header -->
+  <!-- Hero -->
   <header class="hero">
     <div class="container">
       <h1>Discover K-pop Events</h1>
       <p class="lead">Concerts, fan meetings, and more — book your tickets now!</p>
-      <a href="{{url_for('main.create_event')}}" class="btn btn-light btn-lg mt-3">
-      <i class="bi bi-plus-circle me-2"></i>Create Event
+      <a href="{{ url_for('main.create_event') }}" class="btn btn-light btn-lg mt-3">
+        <i class="bi bi-plus-circle me-2"></i>Create Event
       </a>
     </div>
   </header>
 
-  <!-- Events Section -->
+  <!-- Events -->
   <section class="py-5" id="events">
     <div class="container">
 
@@ -72,86 +65,83 @@
         <button class="btn btn-outline-primary" data-category="multigroup">Multi-Group</button>
       </div>
 
-      <!-- Events Grid (DB-backed) -->
       <div class="row g-4" id="eventsContainer">
         {% for e in events %}
-          <div class="col-lg-4 col-md-6">
-            {% set event_status = e.status() %}
-            <div class="card event-card shadow-sm h-100 {% if event_status != 'Open' %}disabled{% endif %}">
+          {% set status = e.status() %}
+          {% set remaining = (e.total_tickets or 0) - (e.sold_tickets or 0) %}
+          <div class="col-lg-4 col-md-6" data-category="{{ e.category|default('all') }}">
+            <div class="card event-card shadow-sm h-100 {% if status != 'Open' %}disabled{% endif %}">
+
               {% if e.image_path %}
                 <img src="{{ url_for('static', filename=e.image_path) }}" class="card-img-top" alt="{{ e.title }}">
               {% endif %}
-      
-              {% if event_status == 'Cancelled' %}
+
+              {% if status == 'Cancelled' %}
                 <span class="status-badge status-cancelled">Cancelled</span>
-              {% elif event_status == 'Sold Out' %}
+              {% elif status == 'Sold Out' %}
                 <span class="status-badge status-sold-out">Sold Out</span>
-              {% elif (e.total_tickets - e.sold_tickets) <= 10 and event_status == 'Open' %}
+              {% elif remaining <= 10 and status == 'Open' %}
                 <span class="status-badge status-low-stock">Low Stock</span>
               {% endif %}
-      
+
               <div class="card-body">
                 <h5 class="card-title fw-bold">{{ e.title }}</h5>
-                <p class="text-muted">
+                <p class="text-muted mb-2">
                   <i class="bi bi-geo-alt me-1"></i>{{ e.location }}<br>
-                  <i class="bi bi-calendar me-1"></i>{{ e.date.strftime('%d %b %Y') }} at {{ e.time.strftime('%I:%M %p') }}
+                  <i class="bi bi-calendar me-1"></i>
+                  {{ e.date.strftime('%d %b %Y') if e.date else '' }}
+                  {% if e.time %} at {{ e.time.strftime('%I:%M %p') }}{% endif %}
                 </p>
                 <div class="d-flex justify-content-between align-items-end">
-                  <span class="h6 text-primary">
-                    {% set remaining = e.total_tickets - e.sold_tickets %}
-                    {{ remaining if remaining >= 0 else 0 }} left
-                  </span>
-                  <small class="ticket-status">{{ event_status }}</small>
+                  <span class="h6 text-primary">{{ remaining if remaining > 0 else 0 }} left</span>
+                  <small class="ticket-status">{{ status }}</small>
                 </div>
               </div>
-      
+
               <div class="card-footer">
-                {% if event_status == 'Open' %}
-                  <a href="{{ url_for('main.event_detail', event_id=e.id) }}" class="btn btn-primary w-100">View & Book</a>
+                {% if status == 'Open' %}
+                  <a href="{{ url_for('main.event_detail', event_id=e.id) }}" class="btn btn-primary w-100">View &amp; Book</a>
                 {% else %}
-                  <button class="btn btn-secondary w-100" disabled>{{ event_status }}</button>
+                  <button class="btn btn-secondary w-100" disabled>{{ status }}</button>
                 {% endif %}
               </div>
             </div>
           </div>
         {% else %}
-          <div class="text-muted">No events yet.</div>
+          <div class="col-12">
+            <div class="alert alert-light border">No events yet.</div>
+          </div>
         {% endfor %}
       </div>
 
     </div>
   </section>
 
+  <footer>
+    <p class="mb-0">&copy; 2025 K-Stage. All rights reserved.</p>
+  </footer>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
-    // Filter functionality
+    // Simple front-end filter
     const filterButtons = document.querySelectorAll('.filter-btns button');
     const eventCards = document.querySelectorAll('#eventsContainer > div');
 
     filterButtons.forEach(button => {
       button.addEventListener('click', () => {
-        // Update active button
         filterButtons.forEach(btn => btn.classList.remove('btn-primary', 'active'));
         filterButtons.forEach(btn => btn.classList.add('btn-outline-primary'));
         button.classList.remove('btn-outline-primary');
         button.classList.add('btn-primary', 'active');
 
-        // Filter events
         const category = button.dataset.category;
         eventCards.forEach(card => {
-          if (category === 'all' || card.dataset.category === category) {
-            card.style.display = 'block';
-          } else {
-            card.style.display = 'none';
-          }
+          const c = card.getAttribute('data-category') || 'all';
+          card.style.display = (category === 'all' || c === category) ? 'block' : 'none';
         });
       });
     });
   </script>
-<footer>
-    <p class="mb-0">&copy; 2025 K-Stage. All rights reserved.</p>
-</footer>
 </body>
-
 </html>
