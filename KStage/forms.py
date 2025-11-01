@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField, SelectField, DateField, TimeField
-from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange
+from wtforms.validators import InputRequired, Length, Email, EqualTo, NumberRange, DataRequired
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
 ALLOWED_FILE = {'PNG', 'JPG', 'JPEG', 'png', 'jpg', 'jpeg'}
@@ -27,7 +27,7 @@ class RegisterForm(FlaskForm):
 
 # for booking numbers
 class BookingForm(FlaskForm):
-    qty = IntegerField("Tickets", validators=[InputRequired(), NumberRange(min=1)])
+    qty = IntegerField("Tickets", validators=[DataRequired(), NumberRange(min=1, max=1000)])
     submit = SubmitField("Book Now")
 
 # for creating events
