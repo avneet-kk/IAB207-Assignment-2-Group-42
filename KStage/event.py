@@ -8,7 +8,7 @@ import os
 from werkzeug.utils import secure_filename
 
 event_destbp = Blueprint('event', __name__, url_prefix='/event')
-
+print('blueprint completed')
 @event_destbp.route ('/<id>') 
 def show (id):
     Event = db.session.scalar(db.select(Event).where(Event.id==id))
