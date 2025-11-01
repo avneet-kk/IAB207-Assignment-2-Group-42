@@ -754,4 +754,22 @@
       font-weight: bold;
     }
 
+    /* --- Fix: Prevent overlay from blocking clicks on the card button --- */
+    .event-card::before {
+      pointer-events: none !important;   /* Overlay should not intercept clicks */
+    }
     
+    /* Ensure the footer/button sits above overlay and remains clickable */
+    .card-footer {
+      position: relative;
+      z-index: 2;
+    }
+    .event-card .card-footer .btn {
+      pointer-events: auto !important;   /* Explicitly allow pointer events on button */
+    }
+    
+    /* Only block clicks for truly disabled cards */
+    .event-card.disabled .card-footer .btn {
+      pointer-events: none !important;
+      cursor: not-allowed;
+    }    
