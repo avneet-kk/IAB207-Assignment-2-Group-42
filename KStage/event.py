@@ -55,6 +55,8 @@ def create():
                 flash(f'{field}: {error}', 'danger')
 
   return render_template('destination/create.html', form=form)
+print('created event')
+
 
 def check_upload_file(form):
   # get file data from form  
