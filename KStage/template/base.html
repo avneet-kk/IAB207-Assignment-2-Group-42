@@ -46,10 +46,15 @@
           <li class="nav-item"><a class="nav-link" href="{{url_for('main.events')}}">Events</a></li>
           <li class="nav-item"><a class="nav-link" href="{{url_for('main.create_event')}}">Create Event</a></li>
           <li class="nav-item"><a class="nav-link" href="{{url_for('main.booking_history')}}">My Bookings</a></li>
-         <!-- AVNEET FIXING THIS -->
+    
          {% if current_user.is_authenticated %}
-                      <li class=""
-
+                      <li class="nav-item ms-2">
+                        <a class="btn btn-danger" href="{{ url_for(auth.logout') }}">Logout</a>
+                      </li>
+                      {% else %}
+                      <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.login') }}">Login</a></li>
+                      <li class="nav-item"><a class="nav-link" href="{{ url_for('auth.register') }}">Register</a></li>
+                      {% endif %}
 
         </ul>
       </div>
