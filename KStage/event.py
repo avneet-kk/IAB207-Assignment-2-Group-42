@@ -12,6 +12,8 @@ event_destbp = Blueprint('event', __name__, url_prefix='/event')
 @event_destbp.route ('/<id>') 
 def show (id):
     Event = db.session.scalar(db.select(Event).where(Event.id==id))
+    print('connection sucessful')
+
     # Event = get_event ()
     return render_template ('destination/show.html', event = Event)
 
