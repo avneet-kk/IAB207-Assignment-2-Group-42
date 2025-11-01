@@ -40,15 +40,15 @@ class EventForm(FlaskForm):
             ('concert', 'Concert'),
             ('fanmeeting', 'Fan Meeting'),
             ('dance', 'Dance Competition'),
-            ('mulitgroup', 'Multi-Group '),
+            ('multigroup', 'Multi-Group'),
         ],
         validators=[InputRequired()]
     )
-    date = DateField('date', validators=[InputRequired()])
-    time = TimeField('time', validators=[InputRequired()])
+    date = DateField('Date', validators=[InputRequired()])
+    time = TimeField('Time', validators=[InputRequired()])
     location = StringField('Venue', validators=[InputRequired()])
-    price = StringField('Ticket Price', validators=[InputRequired()])
-    total_tickets = StringField('Ticket Available', validators=[InputRequired()])
+    price = IntegerField('Ticket Price', validators=[InputRequired(), NumberRange(min=0)])
+    total_tickets = IntegerField('Tickets Available', validators=[InputRequired(), NumberRange(min=1)])
     image_path = FileField('Event Image', validators=[
     FileRequired(message = 'Image cannot be empty'),
     FileAllowed(ALLOWED_FILE, message='Only supports png, jpg, JPG, PNG')])
