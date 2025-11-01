@@ -19,8 +19,9 @@ def show (id):
 print('complete showed')
 
 @event_destbp.route('/create', methods = ['GET', 'POST'])
-@login_required
+# @login_required
 def create():
+  print('function working inside')
   print('Method type: ', request.method)
   form = EventForm()
   print('passed section A')
