@@ -44,51 +44,132 @@
   <!-- Create Event Form -->
   <section class="container py-5 mt-5">
     <h2 class="fw-bold mb-4">Create a New Event</h2>
-    <form>
+    
+    <!-- Display flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    
+    <form method="POST" action="{{ url_for('main.create_event') }}" enctype="multipart/form-data">
+      {{ form.csrf_token }}
+      
       <div class="mb-3">
-        <label class="form-label">Event Title</label>
-        <input type="text" class="form-control" placeholder="Enter event title">
+        <label for="{{ form.title.id }}" class="form-label">{{ form.title.label.text }}</label>
+        {{ form.title(class="form-control") }}
+        {% if form.title.errors %}
+          <div class="text-danger">
+            {% for error in form.title.errors %}
+              <small>{{ error }}</small>
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
+      
       <div class="mb-3">
-        <label class="form-label">Category</label>
-        <select class="form-select">
-          <option value="concert">Concert</option>
-          <option value="fanmeeting">Fan Meeting</option>
-          <option value="dance">Dance Competition</option>
-          <option value="multigroup">Multi-Group</option>
-        </select>
+        <label for="{{ form.category.id }}" class="form-label">{{ form.category.label.text }}</label>
+        {{ form.category(class="form-select") }}
+        {% if form.category.errors %}
+          <div class="text-danger">
+            {% for error in form.category.errors %}
+              <small>{{ error }}</small>
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
+      
       <div class="row g-3">
         <div class="col-md-6">
-          <label class="form-label">Date</label>
-          <input type="date" class="form-control">
+          <label for="{{ form.date.id }}" class="form-label">{{ form.date.label.text }}</label>
+          {{ form.date(class="form-control") }}
+          {% if form.date.errors %}
+            <div class="text-danger">
+              {% for error in form.date.errors %}
+                <small>{{ error }}</small>
+              {% endfor %}
+            </div>
+          {% endif %}
         </div>
         <div class="col-md-6">
-          <label class="form-label">Time</label>
-          <input type="time" class="form-control">
+          <label for="{{ form.time.id }}" class="form-label">{{ form.time.label.text }}</label>
+          {{ form.time(class="form-control") }}
+          {% if form.time.errors %}
+            <div class="text-danger">
+              {% for error in form.time.errors %}
+                <small>{{ error }}</small>
+              {% endfor %}
+            </div>
+          {% endif %}
         </div>
       </div>
+      
       <div class="mb-3 mt-3">
-        <label class="form-label">Venue</label>
-        <input type="text" class="form-control" placeholder="Enter venue">
+        <label for="{{ form.location.id }}" class="form-label">{{ form.location.label.text }}</label>
+        {{ form.location(class="form-control") }}
+        {% if form.location.errors %}
+          <div class="text-danger">
+            {% for error in form.location.errors %}
+              <small>{{ error }}</small>
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
+      
       <div class="mb-3">
-        <label class="form-label">Ticket Price</label>
-        <input type="number" class="form-control" placeholder="Enter price in AUD">
+        <label for="{{ form.price.id }}" class="form-label">{{ form.price.label.text }}</label>
+        {{ form.price(class="form-control") }}
+        {% if form.price.errors %}
+          <div class="text-danger">
+            {% for error in form.price.errors %}
+              <small>{{ error }}</small>
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
+      
       <div class="mb-3">
-        <label class="form-label">Tickets Available</label>
-        <input type="number" class="form-control" placeholder="Enter total number of tickets">
+        <label for="{{ form.total_tickets.id }}" class="form-label">{{ form.total_tickets.label.text }}</label>
+        {{ form.total_tickets(class="form-control") }}
+        {% if form.total_tickets.errors %}
+          <div class="text-danger">
+            {% for error in form.total_tickets.errors %}
+              <small>{{ error }}</small>
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
+      
       <div class="mb-3">
-        <label class="form-label">Event Image</label>
-        <input type="file" class="form-control">
+        <label for="{{ form.image_path.id }}" class="form-label">{{ form.image_path.label.text }}</label>
+        {{ form.image_path(class="form-control") }}
+        {% if form.image_path.errors %}
+          <div class="text-danger">
+            {% for error in form.image_path.errors %}
+              <small>{{ error }}</small>
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
+      
       <div class="mb-3">
-        <label class="form-label">Description</label>
-        <textarea class="form-control" rows="4" placeholder="Enter event details"></textarea>
+        <label for="{{ form.description.id }}" class="form-label">{{ form.description.label.text }}</label>
+        {{ form.description(class="form-control", rows="4") }}
+        {% if form.description.errors %}
+          <div class="text-danger">
+            {% for error in form.description.errors %}
+              <small>{{ error }}</small>
+            {% endfor %}
+          </div>
+        {% endif %}
       </div>
-      <button type="submit" class="btn btn-primary w-100">Create Event</button>
+      
+      {{ form.submit(class="btn btn-primary w-100") }}
     </form>
   </section>
 

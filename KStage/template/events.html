@@ -76,16 +76,17 @@
       <div class="row g-4" id="eventsContainer">
         {% for e in events %}
           <div class="col-lg-4 col-md-6">
-            <div class="card event-card shadow-sm h-100 {% if e.status != 'Open' %}disabled{% endif %}">
+            {% set event_status = e.status() %}
+            <div class="card event-card shadow-sm h-100 {% if event_status != 'Open' %}disabled{% endif %}">
               {% if e.image_path %}
                 <img src="{{ url_for('static', filename=e.image_path) }}" class="card-img-top" alt="{{ e.title }}">
               {% endif %}
       
-              {% if e.status == 'Cancelled' %}
+              {% if event_status == 'Cancelled' %}
                 <span class="status-badge status-cancelled">Cancelled</span>
-              {% elif e.status == 'Sold Out' %}
+              {% elif event_status == 'Sold Out' %}
                 <span class="status-badge status-sold-out">Sold Out</span>
-              {% elif (e.total_tickets - e.sold_tickets) <= 10 and e.status == 'Open' %}
+              {% elif (e.total_tickets - e.sold_tickets) <= 10 and event_status == 'Open' %}
                 <span class="status-badge status-low-stock">Low Stock</span>
               {% endif %}
       
@@ -93,21 +94,22 @@
                 <h5 class="card-title fw-bold">{{ e.title }}</h5>
                 <p class="text-muted">
                   <i class="bi bi-geo-alt me-1"></i>{{ e.location }}<br>
-                  <i class="bi bi-calendar me-1"></i>{{ e.date.strftime('%d %b %Y, %I:%M %p') }}
+                  <i class="bi bi-calendar me-1"></i>{{ e.date.strftime('%d %b %Y') }} at {{ e.time.strftime('%I:%M %p') }}
                 </p>
                 <div class="d-flex justify-content-between align-items-end">
                   <span class="h6 text-primary">
-                    {{ (e.total_tickets - e.sold_tickets)|max(0) }} left
+                    {% set remaining = e.total_tickets - e.sold_tickets %}
+                    {{ remaining if remaining >= 0 else 0 }} left
                   </span>
-                  <small class="ticket-status">{{ e.status }}</small>
+                  <small class="ticket-status">{{ event_status }}</small>
                 </div>
               </div>
       
               <div class="card-footer">
-                {% if e.status == 'Open' %}
+                {% if event_status == 'Open' %}
                   <a href="{{ url_for('main.event_detail', event_id=e.id) }}" class="btn btn-primary w-100">View & Book</a>
                 {% else %}
-                  <button class="btn btn-secondary w-100" disabled>{{ e.status }}</button>
+                  <button class="btn btn-secondary w-100" disabled>{{ event_status }}</button>
                 {% endif %}
               </div>
             </div>
@@ -153,7 +155,3 @@
 </body>
 
 </html>
-
-
-
-
