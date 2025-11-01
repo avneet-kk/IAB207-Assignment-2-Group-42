@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, logout_user, login_required, current_user, LoginManager
 from . import db
-from .models import Event, Order
-from .forms import RegisterForm, LoginForm, BookingForm, EventForm
+from .models import Event, Order, Comment
+from .forms import RegisterForm, LoginForm, BookingForm, EventForm, CommentForm
 import secrets
 from datetime import datetime
 import os
@@ -28,6 +28,7 @@ def event_detail(event_id: int):
     """Show one event and handle booking form submission."""
     event = Event.query.get_or_404(event_id)
     form = BookingForm()
+    comment_form = CommentForm()
 
     if form.validate_on_submit():
         # Booking requires authentication
@@ -56,8 +57,12 @@ def event_detail(event_id: int):
         flash(f'Booked! Order ID: {order_id}', 'success')
         return redirect(url_for('main.booking_history'))
 
-    # GET or invalid POST -> render page with form + event details
-    return render_template('event-details.html', event=event, form=form)
+    # For GET or invalid POST, render the page with both forms
+    # If Event.comments is lazy='dynamic', you can order here:
+    comments = event.comments.order_by(Comment.created_at.desc()).all()  # newest first
+    return render_template('event-details.html', event=event, form=form,
+                           comment_form=comment_form, comments=comments)
+
 
 @main_bp.route('/create_event', methods=['GET', 'POST'])
 @login_required
@@ -122,3 +127,30 @@ def booking_history():
                 .order_by(Order.created_at.desc())
                 .all())
     return render_template('booking-history.html', bookings=bookings)
+
+
+@main_bp.post('/events/<int:event_id>/comment')
+@login_required
+def add_comment(event_id: int):
+    """
+    Handle comment submission for an event.
+    """
+    event = Event.query.get_or_404(event_id)
+    form = CommentForm()
+
+    if form.validate_on_submit():
+        c = Comment(
+            content=form.comment.data.strip(),
+            user_id=current_user.id,
+            event_id=event.id
+        )
+        db.session.add(c)
+        db.session.commit()
+        flash("Comment posted!", "success")
+    else:
+        # show the first validation error(s)
+        for field, errs in form.errors.items():
+            for err in errs:
+                flash(f"{field}: {err}", "danger")
+
+    return redirect(url_for('main.event_detail', event_id=event.id))
