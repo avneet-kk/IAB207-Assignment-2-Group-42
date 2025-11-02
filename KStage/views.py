@@ -13,9 +13,9 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/')
 def index():
     """Landing page."""
-    # If you prefer to route visitors straight to events, use:
-    # return redirect(url_for('main.events'))
-    return render_template('index.html')
+   # Fetch events from database to display on homepage
+    events = Event.query.order_by(Event.date.asc()).all()
+    return render_template('index.html', events=events)
 
 @main_bp.route('/events')
 def events():

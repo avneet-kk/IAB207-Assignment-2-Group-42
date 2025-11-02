@@ -173,11 +173,11 @@
           <button class="category-btn" data-category="fanmeeting" onclick="selectCategory('fanmeeting', this)">
             <i class="bi bi-people me-1"></i>Fan Meetings
           </button>
-          <button class="category-btn" data-category="festival" onclick="selectCategory('festival', this)">
-            <i class="bi bi-star me-1"></i>Festivals
+          <button class="category-btn" data-category="dance" onclick="selectCategory('dance', this)">
+            <i class="bi bi-star me-1"></i>Dance Competitions
           </button>
-          <button class="category-btn" data-category="showcase" onclick="selectCategory('showcase', this)">
-            <i class="bi bi-award me-1"></i>Showcases
+          <button class="category-btn" data-category="multigroup" onclick="selectCategory('multigroup', this)">
+            <i class="bi bi-award me-1"></i>Multi-Group
           </button>
         </div>
       </div>
@@ -190,103 +190,64 @@
       <h2 class="section-title" data-aos="fade-up">Upcoming Events</h2>
       
       <div class="row g-4" id="eventsContainer">
-        
-        <div class="col-lg-4 col-md-6 loading event-item" data-category="concert" data-name="TWICE 5th World Tour: Ready To Be" data-location="Sydney" data-aos="fade-up" data-aos-delay="100">
-          <div class="card event-card">
-            <div class="category-badge">Concert</div>
-            <div class="price-tag">$249</div>
-            <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=500" class="card-img-top" alt="TWICE Concert" onerror="this.src='https://via.placeholder.com/500x250/0d47a1/ffffff?text=TWICE+Concert'">
-            <div class="card-body">
-              <h5 class="card-title">TWICE 5th World Tour: Ready To Be</h5>
-              <div class="event-meta">
-                <div class="meta-item">
-                  <i class="bi bi-calendar"></i>
-                  <span>6 Nov 2025</span>
-                </div>
-                <div class="meta-item">
-                  <i class="bi bi-geo-alt"></i>
-                  <span>Sydney</span>
-                </div>
-              </div>
-              <a href="event-details.html" class="btn btn-outline-primary w-100">
-                <i class="bi bi-ticket me-2"></i>View Details
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 loading event-item" data-category="fanmeeting" data-name="Stray Kids Fan Meeting" data-location="Sydney" data-aos="fade-up" data-aos-delay="100">
-          <div class="card event-card">
-            <div class="category-badge">Fan Meeting</div>
-            <div class="price-tag">$179</div>
-            <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=500" class="card-img-top" alt="Stray Kids Fan Meeting" onerror="this.src='https://via.placeholder.com/500x250/0d47a1/ffffff?text=Stray+Kids+Fan+Meeting'">
-            <div class="card-body">
-              <h5 class="card-title">Stray Kids Fan Meeting</h5>
-              <div class="event-meta">
-                <div class="meta-item">
-                  <i class="bi bi-calendar"></i>
-                  <span>15 Dec 2025</span>
-                </div>
-                <div class="meta-item">
-                  <i class="bi bi-geo-alt"></i>
-                  <span>Sydney</span>
-                </div>
-              </div>
-              <a href="event-details.html" class="btn btn-outline-primary w-100">
-                <i class="bi bi-ticket me-2"></i>View Details
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 loading event-item" data-category="festival" data-name="K-pop Festival 2025" data-location="Perth" data-aos="fade-up" data-aos-delay="200">
-          <div class="card event-card">
-            <div class="category-badge">Festival</div>
-            <div class="price-tag">$329</div>
-            <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=500" class="card-img-top" alt="K-pop Festival" onerror="this.src='https://via.placeholder.com/500x250/0d47a1/ffffff?text=K-pop+Festival'">
-            <div class="card-body">
-              <h5 class="card-title">K-pop Festival 2025</h5>
-              <div class="event-meta">
-                <div class="meta-item">
-                  <i class="bi bi-calendar"></i>
-                  <span>31 Jan 2026</span>
-                </div>
-                <div class="meta-item">
-                  <i class="bi bi-geo-alt"></i>
-                  <span>Perth</span>
+        {% if events %}
+          {% for e in events %}
+            {% set status = e.status() %}
+            {% set remaining = (e.total_tickets or 0) - (e.sold_tickets or 0) %}
+            {% set category_display = e.category|title if e.category else 'Event' %}
+            {% if e.category == 'fanmeeting' %}
+              {% set category_display = 'Fan Meeting' %}
+            {% elif e.category == 'multigroup' %}
+              {% set category_display = 'Multi-Group' %}
+            {% elif e.category == 'dance' %}
+              {% set category_display = 'Dance Competition' %}
+            {% endif %}
+            <div class="col-lg-4 col-md-6 loading event-item" data-category="{{ e.category|default('all') }}" data-name="{{ e.title }}" data-location="{{ e.location }}" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+              <div class="card event-card">
+                <div class="category-badge">{{ category_display }}</div>
+                {% if e.ticket_price is not none %}
+                  <div class="price-tag">${{ '%.0f'|format(e.ticket_price) }}</div>
+                {% endif %}
+                {% if e.image_path %}
+                  <img src="{{ url_for('static', filename=e.image_path) }}" class="card-img-top" alt="{{ e.title }}" onerror="this.src='https://via.placeholder.com/500x250/0d47a1/ffffff?text={{ e.title|replace(' ', '+') }}'">
+                {% else %}
+                  <img src="https://via.placeholder.com/500x250/0d47a1/ffffff?text={{ e.title|replace(' ', '+') }}" class="card-img-top" alt="{{ e.title }}">
+                {% endif %}
+                <div class="card-body">
+                  <h5 class="card-title">{{ e.title }}</h5>
+                  <div class="event-meta">
+                    <div class="meta-item">
+                      <i class="bi bi-calendar"></i>
+                      <span>{{ e.date.strftime('%d %b %Y') if e.date else 'TBA' }}</span>
+                      {% if e.time %}
+                        <span class="ms-1">{{ e.time.strftime('%I:%M %p') }}</span>
+                      {% endif %}
+                    </div>
+                    <div class="meta-item">
+                      <i class="bi bi-geo-alt"></i>
+                      <span>{{ e.location }}</span>
+                    </div>
+                  </div>
+                  {% if status == 'Open' and remaining > 0 %}
+                    <a href="{{ url_for('main.event_detail', event_id=e.id) }}" class="btn btn-outline-primary w-100">
+                      <i class="bi bi-ticket me-2"></i>View Details
+                    </a>
+                  {% else %}
+                    <a href="{{ url_for('main.event_detail', event_id=e.id) }}" class="btn btn-outline-secondary w-100">
+                      <i class="bi bi-info-circle me-2"></i>View Details
+                    </a>
+                  {% endif %}
                 </div>
               </div>
-              <a href="event-details.html" class="btn btn-outline-primary w-100">
-                <i class="bi bi-ticket me-2"></i>View Details
-              </a>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="col-12">
+            <div class="alert alert-info text-center">
+              <i class="bi bi-info-circle me-2"></i>No events available at the moment. Check back soon!
             </div>
           </div>
-        </div>
-
-        <div class="col-lg-4 col-md-6 loading event-item" data-category="showcase" data-name="ATEEZ Album Showcase" data-location="Adelaide" data-aos="fade-up" data-aos-delay="300">
-          <div class="card event-card">
-            <div class="category-badge">Showcase</div>
-            <div class="price-tag">$149</div>
-            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=500" class="card-img-top" alt="ATEEZ Showcase" onerror="this.src='https://via.placeholder.com/500x250/0d47a1/ffffff?text=ATEEZ+Showcase'">
-            <div class="card-body">
-              <h5 class="card-title">ATEEZ Album Showcase</h5>
-              <div class="event-meta">
-                <div class="meta-item">
-                  <i class="bi bi-calendar"></i>
-                  <span>5 Feb 2026</span>
-                </div>
-                <div class="meta-item">
-                  <i class="bi bi-geo-alt"></i>
-                  <span>Adelaide</span>
-                </div>
-              </div>
-              <a href="event-details.html" class="btn btn-outline-primary w-100">
-                <i class="bi bi-ticket me-2"></i>View Details
-              </a>
-            </div>
-          </div>
-        </div>
-
+        {% endif %}
       </div>
 
      <div class="text-center mt-5" data-aos="fade-up">
@@ -383,13 +344,23 @@
     function filterEvents() {
       const searchInput = document.getElementById('searchInput').value.toLowerCase();
       const eventItems = document.querySelectorAll('.event-item');
-      const noResults = document.getElementById('noResults');
       let visibleCount = 0;
+      let noResultsMsg = document.getElementById('noResults');
+
+      // Create no results message if it doesn't exist
+      if (!noResultsMsg && eventItems.length > 0) {
+        noResultsMsg = document.createElement('div');
+        noResultsMsg.id = 'noResults';
+        noResultsMsg.className = 'col-12 alert alert-info text-center';
+        noResultsMsg.style.display = 'none';
+        noResultsMsg.innerHTML = '<i class="bi bi-search me-2"></i>No events match your search criteria.';
+        document.getElementById('eventsContainer').appendChild(noResultsMsg);
+      }
 
       eventItems.forEach(item => {
         const category = item.getAttribute('data-category');
-        const name = item.getAttribute('data-name').toLowerCase();
-        const location = item.getAttribute('data-location').toLowerCase();
+        const name = item.getAttribute('data-name') ? item.getAttribute('data-name').toLowerCase() : '';
+        const location = item.getAttribute('data-location') ? item.getAttribute('data-location').toLowerCase() : '';
         
         // Check category match
         const categoryMatch = currentCategory === 'all' || category === currentCategory;
@@ -409,10 +380,12 @@
       });
 
       // Show/hide no results message
-      if (visibleCount === 0) {
-        noResults.style.display = 'block';
-      } else {
-        noResults.style.display = 'none';
+      if (noResultsMsg) {
+        if (visibleCount === 0 && eventItems.length > 0) {
+          noResultsMsg.style.display = 'block';
+        } else {
+          noResultsMsg.style.display = 'none';
+        }
       }
     }
 
@@ -517,7 +490,6 @@
 
             </div>
           </div>
-
 
 
 
