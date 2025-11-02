@@ -13,13 +13,14 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/')
 def index():
     """Landing page."""
-    # Fetch only "Open" events from database to display on homepage
+    # Fetch only "Open" events from database to display on homepage (limit to 6)
     today = date.today()
     events = (Event.query
               .filter(Event.is_cancelled == False)
               .filter(Event.date >= today)
               .filter(Event.sold_tickets < Event.total_tickets)
               .order_by(Event.date.asc())
+              .limit(6)
               .all())
     return render_template('index.html', events=events)
 
