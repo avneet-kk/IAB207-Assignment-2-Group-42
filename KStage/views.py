@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, logout_user, login_required, current_user, LoginManager
 from . import db
 from .models import Event, Order, Comment
-from .forms import RegisterForm, LoginForm, BookingForm, EventForm, CommentForm
+from .forms import RegisterForm, LoginForm, BookingForm, EventForm, CommentForm, EditEventForm
 import secrets
 from datetime import datetime
 import os
@@ -154,3 +154,87 @@ def add_comment(event_id: int):
                 flash(f"{field}: {err}", "danger")
 
     return redirect(url_for('main.event_detail', event_id=event.id))
+
+@main_bp.route('/events/<int:event_id>/edit', methods=['GET', 'POST'])
+@login_required
+def edit_event(event_id: int):
+    """Edit an existing event. Only the event owner can edit."""
+    event = Event.query.get_or_404(event_id)
+    
+    # Check if current user is the event owner
+    if not current_user.is_authenticated or current_user.id != event.owner_id:
+        flash("You don't have permission to edit this event.", "danger")
+        return redirect(url_for('main.event_detail', event_id=event.id))
+    
+    form = EditEventForm()
+    
+    if form.validate_on_submit():
+        # Update event fields
+        event.title = form.title.data.strip()
+        event.category = form.category.data
+        event.description = form.description.data.strip()
+        event.date = form.date.data
+        event.time = form.time.data
+        event.location = form.location.data.strip()
+        event.total_tickets = form.total_tickets.data
+        event.ticket_price = form.price.data
+        
+        # Handle status selection
+        status = form.status.data
+        if status == 'Cancelled':
+            event.is_cancelled = True
+        elif status == 'Open':
+            event.is_cancelled = False
+            # If it was sold out before and now set to Open, we keep sold_tickets as is
+            # User can manually adjust sold_tickets if needed
+        elif status == 'Sold Out':
+            event.is_cancelled = False
+            # Set sold_tickets to total_tickets to make it sold out
+            event.sold_tickets = event.total_tickets
+        elif status == 'Inactive':
+            # "Inactive" is automatically determined by date being in the past
+            # We just ensure it's not cancelled
+            event.is_cancelled = False
+            # Note: If date is in the future, status() will still return "Open" until date passes
+        
+        # Handle image upload (only update if a new image is provided)
+        image_file = form.image_path.data
+        if image_file:
+            # Get the filename and secure it
+            filename = secure_filename(image_file.filename)
+            # Get the base path (parent directory of KStage)
+            BASE_PATH = os.path.dirname(os.path.dirname(__file__))
+            # Create the upload directory if it doesn't exist
+            upload_dir = os.path.join(BASE_PATH, 'KStage', 'static', 'img')
+            os.makedirs(upload_dir, exist_ok=True)
+            # Full path to save the file
+            upload_path = os.path.join(upload_dir, filename)
+            # Save the file
+            image_file.save(upload_path)
+            # Store relative path for database (relative to static folder)
+            event.image_path = f'img/{filename}'
+        
+        db.session.commit()
+        flash("Event updated successfully!", "success")
+        return redirect(url_for('main.event_detail', event_id=event.id))
+    
+    # Pre-populate form with existing event data (for GET request)
+    if request.method == 'GET':
+        form.title.data = event.title
+        form.category.data = event.category
+        form.description.data = event.description
+        form.date.data = event.date
+        form.time.data = event.time
+        form.location.data = event.location
+        form.total_tickets.data = event.total_tickets
+        form.price.data = event.ticket_price
+        # Pre-populate status based on current event status
+        form.status.data = event.status()
+    
+    # Display form errors if validation failed
+    if request.method == 'POST':
+        for field, errors in form.errors.items():
+            for error in errors:
+                flash(f'{field}: {error}', 'danger')
+    
+    return render_template('edit-event.html', form=form, event=event)

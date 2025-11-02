@@ -57,8 +57,43 @@ class EventForm(FlaskForm):
     #submit button
     submit = SubmitField('Create Event')
 
-#for comments
+# for editing events
+class EditEventForm(FlaskForm):
+    title = StringField('Event Title', validators=[InputRequired(), Length(max=200)])
+    # Category dropdown box
+    category = SelectField(
+        'Category',
+        choices=[
+            ('concert', 'Concert'),
+            ('fanmeeting', 'Fan Meeting'),
+            ('dance', 'Dance Competition'),
+            ('multigroup', 'Multi-Group'),
+        ],
+        validators=[InputRequired()]
+    )
+    date = DateField('Date', validators=[InputRequired()])
+    time = TimeField('Time', validators=[InputRequired()])
+    location = StringField('Venue', validators=[InputRequired()])
+    price = IntegerField('Ticket Price', validators=[InputRequired(), NumberRange(min=0)])
+    total_tickets = IntegerField('Tickets Available', validators=[InputRequired(), NumberRange(min=1)])
+    status = SelectField(
+        'Event Status',
+        choices=[
+            ('Open', 'Open'),
+            ('Cancelled', 'Cancelled'),
+            ('Inactive', 'Inactive (Event in the past)'),
+            ('Sold Out', 'Sold Out'),
+        ],
+        validators=[InputRequired()]
+    )
+    image_path = FileField('Event Image (leave empty to keep current image)', validators=[
+        FileAllowed(ALLOWED_FILE, message='Only supports png, jpg, JPG, PNG')])
+    description = TextAreaField('Description', validators = [InputRequired()])
 
+    #submit button
+    submit = SubmitField('Update Event')
+
+#for comments
 class CommentForm(FlaskForm):
     comment = TextAreaField("Add a Comment", validators=[InputRequired(), Length(min=1, max=500)])
     submit = SubmitField("Post Comment")
