@@ -209,9 +209,11 @@
                   <div class="price-tag">${{ '%.0f'|format(e.ticket_price) }}</div>
                 {% endif %}
                 {% if e.image_path %}
-                  <img src="{{ url_for('static', filename=e.image_path) }}" class="card-img-top" alt="{{ e.title }}" onerror="this.src='https://via.placeholder.com/500x250/0d47a1/ffffff?text={{ e.title|replace(' ', '+') }}'">
+                  <img src="{{ url_for('static', filename=e.image_path) }}" class="card-img-top" alt="{{ e.title }}">
                 {% else %}
-                  <img src="https://via.placeholder.com/500x250/0d47a1/ffffff?text={{ e.title|replace(' ', '+') }}" class="card-img-top" alt="{{ e.title }}">
+                  <div class="card-img-top bg-secondary d-flex align-items-center justify-content-center" style="height: 250px;">
+                    <i class="bi bi-image text-white" style="font-size: 3rem;"></i>
+                  </div>
                 {% endif %}
                 <div class="card-body">
                   <h5 class="card-title">{{ e.title }}</h5>
@@ -487,6 +489,7 @@
   </script>
 
 </body>
+
 
 
 
