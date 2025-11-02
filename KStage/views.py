@@ -179,23 +179,14 @@ def edit_event(event_id: int):
         event.total_tickets = form.total_tickets.data
         event.ticket_price = form.price.data
         
-        # Handle status selection
+        # Handle status selection (only Open or Cancelled can be manually set)
         status = form.status.data
         if status == 'Cancelled':
             event.is_cancelled = True
         elif status == 'Open':
             event.is_cancelled = False
-            # If it was sold out before and now set to Open, we keep sold_tickets as is
-            # User can manually adjust sold_tickets if needed
-        elif status == 'Sold Out':
-            event.is_cancelled = False
-            # Set sold_tickets to total_tickets to make it sold out
-            event.sold_tickets = event.total_tickets
-        elif status == 'Inactive':
-            # "Inactive" is automatically determined by date being in the past
-            # We just ensure it's not cancelled
-            event.is_cancelled = False
-            # Note: If date is in the future, status() will still return "Open" until date passes
+            # Note: "Inactive" and "Sold Out" are automatically determined by the system
+            # based on date and ticket sales, so they're not options here
         
         # Handle image upload (only update if a new image is provided)
         image_file = form.image_path.data
@@ -229,7 +220,14 @@ def edit_event(event_id: int):
         form.total_tickets.data = event.total_tickets
         form.price.data = event.ticket_price
         # Pre-populate status based on current event status
-        form.status.data = event.status()
+        # If status is "Inactive" or "Sold Out", default to "Open" (since those can't be manually set)
+        current_status = event.status()
+        if current_status in ['Open', 'Cancelled']:
+            form.status.data = current_status
+        else:
+            # If "Inactive" or "Sold Out", default to "Open" (user can manually change to Cancelled if needed)
+            form.status.data = 'Open'
+        # Note: image_path is not pre-populated since it's a file field
     
     # Display form errors if validation failed
     if request.method == 'POST':

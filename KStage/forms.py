@@ -81,8 +81,6 @@ class EditEventForm(FlaskForm):
         choices=[
             ('Open', 'Open'),
             ('Cancelled', 'Cancelled'),
-            ('Inactive', 'Inactive (Event in the past)'),
-            ('Sold Out', 'Sold Out'),
         ],
         validators=[InputRequired()]
     )
