@@ -4,7 +4,7 @@ from . import db
 from .models import Event, Order, Comment
 from .forms import RegisterForm, LoginForm, BookingForm, EventForm, CommentForm, EditEventForm
 import secrets
-from datetime import datetime
+from datetime import date
 import os
 from werkzeug.utils import secure_filename
 
@@ -13,8 +13,14 @@ main_bp = Blueprint('main', __name__)
 @main_bp.route('/')
 def index():
     """Landing page."""
-   # Fetch events from database to display on homepage
-    events = Event.query.order_by(Event.date.asc()).all()
+    # Fetch only "Open" events from database to display on homepage
+    today = date.today()
+    events = (Event.query
+              .filter(Event.is_cancelled == False)
+              .filter(Event.date >= today)
+              .filter(Event.sold_tickets < Event.total_tickets)
+              .order_by(Event.date.asc())
+              .all())
     return render_template('index.html', events=events)
 
 @main_bp.route('/events')
@@ -236,3 +242,4 @@ def edit_event(event_id: int):
                 flash(f'{field}: {error}', 'danger')
     
     return render_template('edit-event.html', form=form, event=event)
+
