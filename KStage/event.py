@@ -8,7 +8,6 @@ import os
 from werkzeug.utils import secure_filename
 
 event_destbp = Blueprint('event', __name__, url_prefix='/event')
-print('blueprint completed')
 
 @event_destbp.route('/create', methods = ['GET', 'POST'])
 # @login_required
